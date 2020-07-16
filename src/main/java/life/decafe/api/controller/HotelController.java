@@ -30,6 +30,13 @@ public class HotelController {
     return ResponseEntity.ok(hotels);
   }
 
+  @GetMapping(value = "/countHotels")
+  public ResponseEntity<Long> countHotels() {
+    LOGGER.info("Counting number of hotels");
+    Long countHotels = hotelRepository.count();
+    return ResponseEntity.ok(countHotels);
+  }
+
   @DeleteMapping(value = "/{hotelId}")
   public ResponseEntity<Void> deleteHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Deleting hotel by Id={}", hotelId);
