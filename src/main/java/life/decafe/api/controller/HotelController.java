@@ -44,6 +44,13 @@ public class HotelController {
     return ResponseEntity.noContent().build();
   }
 
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+    LOGGER.info("Creating a hotel");
+    Hotel hotelCreated = hotelRepository.save(hotel);
+    return ResponseEntity.ok(hotelCreated);
+  }
+
   @GetMapping(value = "/{hotelId}")
   public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving hotel by Id={}", hotelId);
