@@ -27,4 +27,11 @@ public class RoomController {
     List<Room> rooms = roomRepository.findAllByHotelId(hotelId);
     return ResponseEntity.ok(rooms);
   }
+
+  @GetMapping(value = "/countRooms")
+  public ResponseEntity<Long> countRooms() {
+    LOGGER.info("Counting number of rooms");
+    Long countRooms = roomRepository.count();
+    return ResponseEntity.ok(countRooms);
+  }
 }
