@@ -28,7 +28,21 @@ public class RoomController {
     return ResponseEntity.ok(rooms);
   }
 
-  @GetMapping(value = "/countRooms")
+  @PutMapping(value = "/hotel/{hotelId}/room/{roomId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Room> updateRoomById(@RequestBody Room room, @PathVariable Long hotelId, @PathVariable Long roomId) {
+    LOGGER.info("Update a rom with Id={} in the hotel with Id={}", roomId, hotelId);
+    Room roomUpdated = roomRepository.save(room);
+    return ResponseEntity.ok(roomUpdated);
+  }
+
+  @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Room> createRoom(@RequestBody Room room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
+    LOGGER.info("Creating a room with roomTypeId={} and hotelId={}", roomtypeId, hotelId);
+    Room roomCreated = roomRepository.save(room);
+    return ResponseEntity.ok(roomCreated);
+  }
+
+  @GetMapping(value = "/countrooms")
   public ResponseEntity<Long> countRooms() {
     LOGGER.info("Counting number of rooms");
     Long countRooms = roomRepository.count();
