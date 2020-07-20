@@ -35,4 +35,11 @@ public class RoomAmenityController {
     RoomAmenity roomAmenity = roomAmenityRepository.save(roomamenity);
     return ResponseEntity.ok(roomAmenity);
   }
+
+  @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity/{roomamenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<RoomAmenity> updateRoomAmenity(@RequestBody RoomAmenity roomAmenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomamenityId) {
+    LOGGER.info("Updating roomamenity with id={}", roomamenityId);
+    RoomAmenity roomamenityUpdated = roomAmenityRepository.save(roomAmenity);
+    return ResponseEntity.ok(roomAmenity);
+  }
 }
