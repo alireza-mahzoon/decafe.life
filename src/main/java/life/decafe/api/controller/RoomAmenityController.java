@@ -42,4 +42,11 @@ public class RoomAmenityController {
     RoomAmenity roomamenityUpdated = roomAmenityRepository.save(roomAmenity);
     return ResponseEntity.ok(roomAmenity);
   }
+
+  @DeleteMapping(value = "/hotel/{hotelid}/roomtype/{roomtypeid}/roomamenity/{roomamenityid}")
+  public ResponseEntity<Void> deleteRoomAmenityById(@PathVariable Long hotelid, @PathVariable Long roomtypeid, @PathVariable Long roomamenityid) {
+    LOGGER.info("Delete a roomamenity by id={}", roomamenityid);
+    roomAmenityRepository.deleteById(roomamenityid);
+    return ResponseEntity.noContent().build();
+  }
 }
