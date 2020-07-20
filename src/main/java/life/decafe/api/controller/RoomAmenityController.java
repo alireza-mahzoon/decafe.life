@@ -28,4 +28,11 @@ public class RoomAmenityController {
     List<RoomAmenity> roomAmenities = roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
     return ResponseEntity.ok(roomAmenities);
   }
+
+  @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<RoomAmenity> createRoomAmenity(@RequestBody RoomAmenity roomamenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId) {
+    LOGGER.info("Creating a roomAmenity for hotel with id={} and roomType with Id={}", hotelId, roomtypeId );
+    RoomAmenity roomAmenity = roomAmenityRepository.save(roomamenity);
+    return ResponseEntity.ok(roomAmenity);
+  }
 }
