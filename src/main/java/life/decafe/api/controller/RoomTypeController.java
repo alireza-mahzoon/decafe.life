@@ -48,4 +48,11 @@ public class RoomTypeController {
     RoomType roomTypeUpdated = roomTypeRepository.save(roomType);
     return ResponseEntity.ok(roomTypeUpdated);
   }
+
+  @DeleteMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> deleteRoomTypeById(@PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+    LOGGER.info("Deleting a roomType with id={}", roomTypeId);
+    roomTypeRepository.deleteById(roomTypeId);
+    return ResponseEntity.noContent().build();
+  }
 }
