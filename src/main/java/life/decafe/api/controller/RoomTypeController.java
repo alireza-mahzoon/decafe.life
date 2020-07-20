@@ -35,12 +35,17 @@ public class RoomTypeController {
     return ResponseEntity.ok(roomTypes);
   }
 
-  @PostMapping(value = "/hotel/{hotelId}/roomtype", produces = MediaType.APPLICATION_JSON_VALUE)
+  @PostMapping(value = "/hotel/{hotelId}/roomtype", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<RoomType> createRoomType(@RequestBody RoomType roomType, @PathVariable Long hotelId) {
     LOGGER.info("Create a roomType for a hotel with id={}", hotelId);
     RoomType createdRoomType = roomTypeRepository.save(roomType);
     return ResponseEntity.ok(createdRoomType);
   }
 
-  
+  @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<RoomType> updateRoomType(@RequestBody RoomType roomType, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+    LOGGER.info("Updating a roomType with id={} and hotelId ={}", roomTypeId, hotelId);
+    RoomType roomTypeUpdated = roomTypeRepository.save(roomType);
+    return ResponseEntity.ok(roomTypeUpdated);
+  }
 }
