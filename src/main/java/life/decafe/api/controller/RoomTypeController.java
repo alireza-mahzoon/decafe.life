@@ -27,4 +27,11 @@ public class RoomTypeController {
     Long countRoomTypes = roomTypeRepository.count();
     return ResponseEntity.ok(countRoomTypes);
   }
+
+  @GetMapping(value = "/hotel/{hotelId}/roomType", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<RoomType>> getAllRoomTypes(@PathVariable Long hotelId) {
+    LOGGER.info("Retrieving all roomTypes");
+    List<RoomType> roomTypes = roomTypeRepository.findAllByHotelId(hotelId);
+    return ResponseEntity.ok(roomTypes);
+  }
 }
