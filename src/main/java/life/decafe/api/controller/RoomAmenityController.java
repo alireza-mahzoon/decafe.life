@@ -22,30 +22,30 @@ public class RoomAmenityController {
   public RoomAmenityController(RoomAmenityRepository roomAmenityRepository) { this.roomAmenityRepository = roomAmenityRepository;
   }
 
-  @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/amenity", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<RoomAmenity>> getAllRoomAmenities(@PathVariable Long hotelId, @PathVariable Long roomtypeId) {
-    LOGGER.info("Reteriving all roomAmenities");
+    LOGGER.info("Retrieving all room amenities");
     List<RoomAmenity> roomAmenities = roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
     return ResponseEntity.ok(roomAmenities);
   }
 
-  @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomAmenity> createRoomAmenity(@RequestBody RoomAmenity roomamenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId) {
-    LOGGER.info("Creating a roomAmenity for hotel with id={} and roomType with Id={}", hotelId, roomtypeId );
+  @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<RoomAmenity> createRoomAmenity(@RequestBody RoomAmenity roomamenity, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+    LOGGER.info("Creating a room amenity for hotel with hotelId={} and room type with Id={}", hotelId, roomTypeId );
     RoomAmenity roomAmenity = roomAmenityRepository.save(roomamenity);
     return ResponseEntity.ok(roomAmenity);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity/{roomamenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<RoomAmenity> updateRoomAmenity(@RequestBody RoomAmenity roomAmenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomamenityId) {
-    LOGGER.info("Updating roomamenity with id={}", roomamenityId);
+    LOGGER.info("Updating room amenity with id={}", roomamenityId);
     RoomAmenity roomamenityUpdated = roomAmenityRepository.save(roomAmenity);
     return ResponseEntity.ok(roomAmenity);
   }
 
-  @DeleteMapping(value = "/hotel/{hotelid}/roomtype/{roomtypeid}/roomamenity/{roomamenityid}")
-  public ResponseEntity<Void> deleteRoomAmenityById(@PathVariable Long hotelid, @PathVariable Long roomtypeid, @PathVariable Long roomamenityid) {
-    LOGGER.info("Delete a roomamenity by id={}", roomamenityid);
+  @DeleteMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeid}/roomamenity/{roomamenityid}")
+  public ResponseEntity<Void> deleteRoomAmenityById(@PathVariable Long hotelId, @PathVariable Long roomtypeid, @PathVariable Long roomamenityid) {
+    LOGGER.info("Delete a room amenity by id={}", roomamenityid);
     roomAmenityRepository.deleteById(roomamenityid);
     return ResponseEntity.noContent().build();
   }
