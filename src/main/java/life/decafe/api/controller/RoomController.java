@@ -43,7 +43,7 @@ public class RoomController {
     return ResponseEntity.ok(roomUpdated);
   }
 
-  @GetMapping(value = "/countrooms")
+  @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Long> countRooms() {
     LOGGER.info("Counting number of rooms");
     Long countRooms = roomRepository.count();
