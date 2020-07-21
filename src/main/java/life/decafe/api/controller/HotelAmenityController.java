@@ -31,6 +31,13 @@ public class HotelAmenityController {
   public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId) {
     LOGGER.info("Create a hotel amenity");
     HotelAmenity hotelAmenityCreated = hotelAmenityRepository.save(hotelAmenity);
-    return ResponseEntity.ok(hotelAmenity);
+    return ResponseEntity.ok(hotelAmenityCreated);
+  }
+
+  @PutMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HotelAmenity> updateHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
+    LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", hotelAmenityId, hotelId);
+    HotelAmenity updatedHotelAmenity = hotelAmenityRepository.save(hotelAmenity);
+    return ResponseEntity.ok(updatedHotelAmenity);
   }
 }
