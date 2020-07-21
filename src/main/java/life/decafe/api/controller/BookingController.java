@@ -45,4 +45,11 @@ public class BookingController {
     Booking bookingCreated = bookingRepository.save(booking);
     return ResponseEntity.ok(bookingCreated);
   }
+
+  @PutMapping(value = "/{bookingId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Booking> updateBooking(@RequestBody Booking booking, @PathVariable Long bookingId) {
+    LOGGER.info("Update a booking with Id={}", bookingId);
+    Booking bookingUpdated = bookingRepository.save(booking);
+    return ResponseEntity.ok(bookingUpdated);
+  }
 }
