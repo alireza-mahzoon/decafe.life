@@ -52,4 +52,11 @@ public class BookingController {
     Booking bookingUpdated = bookingRepository.save(booking);
     return ResponseEntity.ok(bookingUpdated);
   }
+
+  @DeleteMapping(value = "/{bookingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
+    LOGGER.info("Deleting a booking with Id={}", bookingId);
+    bookingRepository.deleteById(bookingId);
+    return ResponseEntity.noContent().build();
+  }
 }
