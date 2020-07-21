@@ -30,8 +30,8 @@ public class HotelAmenityController {
   @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId) {
     LOGGER.info("Create a hotel amenity");
-    HotelAmenity hotelAmenityCreated = hotelAmenityRepository.save(hotelAmenity);
-    return ResponseEntity.ok(hotelAmenityCreated);
+    HotelAmenity CreatedHotelAmenity = hotelAmenityRepository.save(hotelAmenity);
+    return ResponseEntity.ok(CreatedHotelAmenity);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,5 +39,12 @@ public class HotelAmenityController {
     LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", hotelAmenityId, hotelId);
     HotelAmenity updatedHotelAmenity = hotelAmenityRepository.save(hotelAmenity);
     return ResponseEntity.ok(updatedHotelAmenity);
+  }
+
+  @DeleteMapping(value = "hotelId/{hotelId}/amenity/{hotelAmenityId}")
+  public ResponseEntity<Void> deleteHotelAmenityById(@PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
+    LOGGER.info("Delete a hotel amenity with Id={}", hotelAmenityId);
+    hotelAmenityRepository.deleteById(hotelAmenityId);
+    return ResponseEntity.noContent().build();
   }
 }
