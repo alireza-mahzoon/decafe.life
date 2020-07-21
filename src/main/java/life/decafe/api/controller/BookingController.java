@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/booking")
@@ -29,4 +31,18 @@ public class BookingController {
     List<Booking> bookings = bookingRepository.findAll();
     return ResponseEntity.ok(bookings);
   }
+
+  @GetMapping(value = "/{bookingId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
+    LOGGER.info("Retrieving booking by Id={}", bookingId);
+    Optional<Booking> booking = bookingRepository.findById(bookingId);
+    if(booking.isPresent()) {
+      return ResponseEntity.ok(booking.get());
+    }
+    return ResponseEntity.notFound().build();
+  }
+
+
+
+
 }
