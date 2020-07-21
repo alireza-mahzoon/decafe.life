@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.awt.*;
 import java.util.List;
@@ -22,9 +21,16 @@ public class HotelAmenityController {
   public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository) {this.hotelAmenityRepository = hotelAmenityRepository; }
 
   @GetMapping(value = "/hotel/{hotelId}/amenity",  produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<HotelAmenity>> getAllHotelAmenities() {
+  public ResponseEntity<List<HotelAmenity>> getAllHotelAmenities(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving all hotel amenities");
     List<HotelAmenity> hotelAmenities = hotelAmenityRepository.findAll();
     return ResponseEntity.ok(hotelAmenities);
+  }
+
+  @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId) {
+    LOGGER.info("Create a hotel amenity");
+    HotelAmenity hotelAmenityCreated = hotelAmenityRepository.save(hotelAmenity);
+    return ResponseEntity.ok(hotelAmenity);
   }
 }
