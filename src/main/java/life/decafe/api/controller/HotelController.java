@@ -30,7 +30,7 @@ public class HotelController {
     return ResponseEntity.ok(hotels);
   }
 
-  @GetMapping(value = "/countHotels")
+  @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Long> countHotels() {
     LOGGER.info("Counting number of hotels");
     Long countHotels = hotelRepository.count();
@@ -51,7 +51,7 @@ public class HotelController {
     return ResponseEntity.ok(hotelCreated);
   }
 
-  @GetMapping(value = "/{hotelId}")
+  @GetMapping(value = "/{hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving hotel by Id={}", hotelId);
     Optional<Hotel> hotel = hotelRepository.findById(hotelId);
