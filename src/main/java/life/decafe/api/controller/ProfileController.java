@@ -43,4 +43,11 @@ public class ProfileController {
     return ResponseEntity.ok(updatedProfile);
   }
 
+  @DeleteMapping(value = "/{profileId}")
+  public ResponseEntity<Void> deleteUserById(@PathVariable Long profileId) {
+    LOGGER.info("Deleting a user with Id={}", profileId);
+    profileRepository.deleteById(profileId);
+    return ResponseEntity.noContent().build();
+  }
+
 }
