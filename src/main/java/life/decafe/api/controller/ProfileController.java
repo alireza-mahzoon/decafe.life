@@ -7,10 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Table;
 import java.util.List;
 
 @RestController
@@ -24,10 +23,17 @@ public class UserController {
     this.userRepository = userRepository;
   }
 
-//  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//  @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
 //  public ResponseEntity<List<User>> getAllUsers() {
 //    LOGGER.info("Retrieving all users");
-//    List<User> Users = userRepository.findAll();
-//    return ResponseEntity.ok(Users);
+//    List<User> users = userRepository.findAll();
+//    return ResponseEntity.ok(users);
 //  }
+
+  @DeleteMapping(value = "/{userId}")
+  public ResponseEntity<Void> deleteUserById(@PathVariable Long userId) {
+    LOGGER.info("Deleting a user with Id={}", userId);
+    userRepository.deleteById(userId);
+    return ResponseEntity.noContent().build();
+  }
 }

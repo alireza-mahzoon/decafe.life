@@ -39,7 +39,7 @@ create table HotelAmenity (
     Updated timestamp not null
 );
 
-create table "User" (
+create table Profile (
     Id bigserial primary key,
     FirstName TEXT not null,
     LastName TEXT not null,
@@ -61,7 +61,7 @@ create table RoomAmenity (
 
 create table Booking (
     Id bigserial primary key,
-    UserId bigint references "User" (id),
+    ProfileId bigint references Profile (id),
     CheckInDate date not null,
     CheckOutDate date not null,
     HotelId bigint references hotel (id),
