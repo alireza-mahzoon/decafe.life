@@ -29,4 +29,11 @@ public class ProfileController {
     return ResponseEntity.ok(users);
   }
 
+  @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
+    LOGGER.info("Creating a profile");
+    Profile userProfile = profileRepository.save(profile);
+    return ResponseEntity.ok(userProfile);
+  }
+
 }
