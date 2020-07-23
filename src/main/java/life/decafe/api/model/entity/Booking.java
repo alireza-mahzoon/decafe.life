@@ -21,7 +21,7 @@ public class Booking {
   @Schema(description = "Unique Id of this booking", example = "123456", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
   @Schema(description = "Unique ID of this user", example = "123456")
-  private Long userId;
+  private Long profileId;
   @Schema(description = "Check in date", example = "2020-09-19")
   private LocalDate checkInDate;
   @Schema(description = "Check out date", example = "2020-10-19")
