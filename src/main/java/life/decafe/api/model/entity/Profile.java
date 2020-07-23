@@ -11,8 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-@Table(name = "User")
-public class User {
+public class Profile {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @EqualsAndHashCode.Include
