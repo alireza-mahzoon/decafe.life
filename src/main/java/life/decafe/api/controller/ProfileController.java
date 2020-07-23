@@ -36,4 +36,11 @@ public class ProfileController {
     return ResponseEntity.ok(userProfile);
   }
 
+  @PutMapping(value = "/{profileId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile, @PathVariable Long profileId) {
+    LOGGER.info("Update a profile with Id ={}", profileId);
+    Profile updatedProfile = profileRepository.save(profile);
+    return ResponseEntity.ok(updatedProfile);
+  }
+
 }
