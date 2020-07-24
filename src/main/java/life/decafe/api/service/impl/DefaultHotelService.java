@@ -39,5 +39,10 @@ public class DefaultHotelService implements HotelService {
     LOGGER.debug("Find all hotels");
     return hotelRepository.findAll();
   }
-  
+
+  @Override
+  public Long countHotels() {
+    LOGGER.debug("Count all hotels");
+    return hotelRepository.count();
+  }
 }
