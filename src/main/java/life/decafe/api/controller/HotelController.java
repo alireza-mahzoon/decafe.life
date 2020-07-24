@@ -2,6 +2,7 @@ package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.repository.HotelRepository;
+import life.decafe.api.service.HotelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import java.util.Optional;
 public class HotelController {
   private static final Logger LOGGER = LoggerFactory.getLogger(HotelController.class);
   private final HotelRepository hotelRepository;
+  private final HotelService hotelService;
 
   @Autowired
-  public HotelController(HotelRepository hotelRepository) {
+  public HotelController(HotelRepository hotelRepository, HotelService hotelService) {
     this.hotelRepository = hotelRepository;
+    this.hotelService = hotelService;
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,14 +50,14 @@ public class HotelController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
     LOGGER.info("Creating a hotel");
-    Hotel hotelCreated = hotelRepository.save(hotel);
+    Hotel hotelCreated = hotelService.createHotel(hotel);
     return ResponseEntity.ok(hotelCreated);
   }
 
   @GetMapping(value = "/{hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving hotel by Id={}", hotelId);
-    Optional<Hotel> hotel = hotelRepository.findById(hotelId);
+    Optional<Hotel> hotel = hotelService.findHotelById(hotelId);
     if (hotel.isPresent()) {
       return ResponseEntity.ok(hotel.get());
     }
