@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +32,10 @@ public class DefaultHotelService implements HotelService {
   public Optional<Hotel> findHotelById(Long hotelId) {
     LOGGER.debug("Find a hotel by Id={}", hotelId);
     return hotelRepository.findById(hotelId);
+  }
+
+  public List<Hotel> findAllHotels() {
+    LOGGER.debug("Find all hotels");
+    return hotelRepository.findAll();
   }
 }

@@ -2,6 +2,7 @@ package life.decafe.api.service;
 
 import life.decafe.api.model.entity.Hotel;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface HotelService {
@@ -19,4 +20,11 @@ public interface HotelService {
    * @return hotel if exists, empty optional otherwise
    */
   Optional<Hotel> findHotelById(Long hotelId);
+
+  /**
+   * Find all hotels
+   * @param
+   * @return hotel list
+   */
+  List<Hotel> findAllHotels();
 }
