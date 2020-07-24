@@ -45,4 +45,11 @@ public class DefaultHotelService implements HotelService {
     LOGGER.debug("Count all hotels");
     return hotelRepository.count();
   }
+
+  @Override
+  public Void deleteById(Long hotelId) {
+    LOGGER.debug("Delete hotel by Id");
+    hotelRepository.deleteById(hotelId);
+    return null;
+  }
 }
