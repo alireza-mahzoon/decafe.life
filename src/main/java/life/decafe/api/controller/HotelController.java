@@ -17,12 +17,10 @@ import java.util.Optional;
 @RequestMapping("/hotel")
 public class HotelController {
   private static final Logger LOGGER = LoggerFactory.getLogger(HotelController.class);
-  private final HotelRepository hotelRepository;
   private final HotelService hotelService;
 
   @Autowired
   public HotelController(HotelRepository hotelRepository, HotelService hotelService) {
-    this.hotelRepository = hotelRepository;
     this.hotelService = hotelService;
   }
 
@@ -43,7 +41,7 @@ public class HotelController {
   @DeleteMapping(value = "/{hotelId}")
   public ResponseEntity<Void> deleteHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Deleting hotel by Id={}", hotelId);
-    hotelRepository.deleteById(hotelId);
+    hotelService.deleteById(hotelId);
     return ResponseEntity.noContent().build();
   }
 
