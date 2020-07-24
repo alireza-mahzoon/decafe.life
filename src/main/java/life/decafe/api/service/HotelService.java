@@ -34,4 +34,11 @@ public interface HotelService {
    * @return number of hotels
    */
   Long countHotels();
+
+  /**
+   * Delete hotel by Id
+   * @param hotelId hotel Id
+   * @return
+   */
+  Void deleteById(Long hotelId);
 }
