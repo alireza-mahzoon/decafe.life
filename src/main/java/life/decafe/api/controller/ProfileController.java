@@ -2,6 +2,7 @@ package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Profile;
 import life.decafe.api.repository.ProfileRepository;
+import life.decafe.api.service.ProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +17,12 @@ import java.util.List;
 public class ProfileController {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
   private final ProfileRepository profileRepository;
+  private final ProfileService profileService;
 
   @Autowired
-  public ProfileController(ProfileRepository profileRepository) {
+  public ProfileController(ProfileRepository profileRepository, ProfileService profileService) {
     this.profileRepository = profileRepository;
+    this.profileService = profileService;
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,7 +35,7 @@ public class ProfileController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
     LOGGER.info("Creating a profile");
-    Profile userProfile = profileRepository.save(profile);
+    Profile userProfile = profileService.createProfile(profile);
     return ResponseEntity.ok(userProfile);
   }
 
@@ -49,5 +52,4 @@ public class ProfileController {
     profileRepository.deleteById(profileId);
     return ResponseEntity.noContent().build();
   }
-
 }
