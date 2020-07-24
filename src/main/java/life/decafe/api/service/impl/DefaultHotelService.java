@@ -34,8 +34,10 @@ public class DefaultHotelService implements HotelService {
     return hotelRepository.findById(hotelId);
   }
 
+  @Override
   public List<Hotel> findAllHotels() {
     LOGGER.debug("Find all hotels");
     return hotelRepository.findAll();
   }
+  
 }
