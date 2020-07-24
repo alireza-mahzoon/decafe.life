@@ -29,14 +29,14 @@ public class HotelController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Hotel>> getAllHotels() {
     LOGGER.info("Retrieving all hotels");
-    List<Hotel> hotels = hotelRepository.findAll();
+    List<Hotel> hotels = hotelService.findAllHotels();
     return ResponseEntity.ok(hotels);
   }
 
   @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Long> countHotels() {
     LOGGER.info("Counting number of hotels");
-    Long countHotels = hotelRepository.count();
+    Long countHotels = hotelService.countHotels();
     return ResponseEntity.ok(countHotels);
   }
 
