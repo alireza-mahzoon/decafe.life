@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DefaultProfileService implements ProfileService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProfileService.class);
@@ -21,5 +23,11 @@ public class DefaultProfileService implements ProfileService {
     LOGGER.debug("Create a profile");
     Profile profileCreated = profileRepository.save(profile);
     return profileCreated;
+  }
+
+  @Override
+  public List<Profile> findAllProfiles() {
+    LOGGER.debug("Find all profiles");
+    return profileRepository.findAll();
   }
 }
