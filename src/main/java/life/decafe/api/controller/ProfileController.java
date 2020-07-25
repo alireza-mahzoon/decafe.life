@@ -28,7 +28,7 @@ public class ProfileController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Profile>> getAllUsers() {
     LOGGER.info("Retrieving all users");
-    List<Profile> users = profileRepository.findAll();
+    List<Profile> users = profileService.findAllProfiles();
     return ResponseEntity.ok(users);
   }
 
