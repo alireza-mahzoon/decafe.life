@@ -37,4 +37,11 @@ public class DefaultProfileService implements ProfileService {
     LOGGER.debug("Find profile by Id={}", profileId);
     return profileRepository.findById(profileId);
   }
+
+  @Override
+  public Void deleteProfileById(Long profileId) {
+    LOGGER.debug("Delete profile by Id={}", profileId);
+    profileRepository.deleteById(profileId);
+    return null;
+  }
 }
