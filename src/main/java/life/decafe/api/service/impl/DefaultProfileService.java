@@ -44,4 +44,10 @@ public class DefaultProfileService implements ProfileService {
     profileRepository.deleteById(profileId);
     return null;
   }
+
+  @Override
+  public Profile updateProfile(Profile profile) {
+    LOGGER.debug("Update profile information");
+    return profileRepository.save(profile);
+  }
 }
