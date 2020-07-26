@@ -9,4 +9,11 @@ public interface RoomService {
    * @return newly created room
    */
   Room createRoom(Room room);
+
+  /**
+   * Update a room
+   * @param room
+   * @return updated room
+   */
+  Room updateRoom(Room room);
 }
