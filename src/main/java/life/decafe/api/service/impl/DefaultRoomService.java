@@ -21,4 +21,10 @@ public class DefaultRoomService implements RoomService {
     LOGGER.debug("Create a new room");
     return roomRepository.save(room);
   }
+
+  @Override
+  public Room updateRoom(Room room) {
+    LOGGER.debug("Update a room");
+    return roomRepository.save(room);
+  }
 }
