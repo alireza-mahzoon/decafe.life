@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultProfileService implements ProfileService {
@@ -29,5 +30,11 @@ public class DefaultProfileService implements ProfileService {
   public List<Profile> findAllProfiles() {
     LOGGER.debug("Find all profiles");
     return profileRepository.findAll();
+  }
+
+  @Override
+  public Optional<Profile> findProfileById(Long profileId) {
+    LOGGER.debug("Find profile by Id={}", profileId);
+    return profileRepository.findById(profileId);
   }
 }
