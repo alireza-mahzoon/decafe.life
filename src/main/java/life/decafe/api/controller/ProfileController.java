@@ -18,12 +18,10 @@ import java.util.Optional;
 @RequestMapping("/profile")
 public class ProfileController {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProfileController.class);
-  private final ProfileRepository profileRepository;
   private final ProfileService profileService;
 
   @Autowired
   public ProfileController(ProfileRepository profileRepository, ProfileService profileService) {
-    this.profileRepository = profileRepository;
     this.profileService = profileService;
   }
 
@@ -54,7 +52,7 @@ public class ProfileController {
   @PutMapping(value = "/{profileId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Profile> updateProfile(@RequestBody Profile profile, @PathVariable Long profileId) {
     LOGGER.info("Update a profile with Id ={}", profileId);
-    Profile updatedProfile = profileRepository.save(profile);
+    Profile updatedProfile = profileService.updateProfile(profile);
     return ResponseEntity.ok(updatedProfile);
   }
 
