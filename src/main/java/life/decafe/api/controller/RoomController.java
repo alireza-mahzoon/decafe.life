@@ -1,8 +1,8 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Room;
-import life.decafe.api.model.entity.RoomType;
 import life.decafe.api.repository.RoomRepository;
+import life.decafe.api.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,12 @@ import java.util.List;
 public class RoomController {
   private static final Logger LOGGER = LoggerFactory.getLogger(RoomController.class);
   private final RoomRepository roomRepository;
+  private final RoomService roomService;
 
   @Autowired
-  public RoomController(RoomRepository roomRepository) {
+  public RoomController(RoomRepository roomRepository, RoomService roomService) {
     this.roomRepository = roomRepository;
+    this.roomService = roomService;
   }
 
   @GetMapping(value = "/hotel/{hotelId}/room", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -32,7 +34,7 @@ public class RoomController {
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Room> createRoom(@RequestBody Room room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
     LOGGER.info("Creating a room with roomTypeId={} and hotelId={}", roomtypeId, hotelId);
-    Room roomCreated = roomRepository.save(room);
+    Room roomCreated = roomService.createRoom(room);
     return ResponseEntity.ok(roomCreated);
   }
 
