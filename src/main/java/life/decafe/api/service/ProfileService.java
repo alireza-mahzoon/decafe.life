@@ -17,7 +17,7 @@ public interface ProfileService {
   /**
    * Find all profiles
    * @param
-   * @return List<
+   * @return List of profiles
    */
 
   List<Profile> findAllProfiles();
@@ -29,9 +29,11 @@ public interface ProfileService {
    */
   Optional<Profile> findProfileById(Long profileId);
 
-
-
-
-
-
+  /**
+   * Delete profile by it's Id
+   * @param ProfileId profile Id
+   * @return
+   */
+  Void deleteProfileById(Long ProfileId);
+  
 }
