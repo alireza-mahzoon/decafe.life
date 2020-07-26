@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.entity.Profile;
 import life.decafe.api.repository.ProfileRepository;
 import life.decafe.api.service.ProfileService;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/profile")
@@ -30,6 +32,16 @@ public class ProfileController {
     LOGGER.info("Retrieving all users");
     List<Profile> users = profileService.findAllProfiles();
     return ResponseEntity.ok(users);
+  }
+
+  @GetMapping(value = "/{profileId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Profile> findProfile(@PathVariable Long profileId) {
+    LOGGER.info("Retrieving profile by Id={}", profileId);
+    Optional<Profile> profile = profileService.findProfileById(profileId);
+    if (profile.isPresent()) {
+      return ResponseEntity.ok(profile.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
