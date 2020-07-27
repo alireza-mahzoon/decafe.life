@@ -7,6 +7,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DefaultRoomService implements RoomService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomService.class);
@@ -27,4 +29,12 @@ public class DefaultRoomService implements RoomService {
     LOGGER.debug("Update a room");
     return roomRepository.save(room);
   }
+
+  @Override
+  public List<Room> findAllRooms(Long hotelId) {
+    LOGGER.debug("Find all rooms for the hotel with Id={}", hotelId);
+    return roomRepository.findAllByHotelId(hotelId);
+  }
+
+
 }
