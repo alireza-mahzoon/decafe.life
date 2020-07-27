@@ -66,7 +66,7 @@ public class RoomTypeController {
   @DeleteMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> deleteRoomTypeById(@PathVariable Long hotelId, @PathVariable Long roomTypeId) {
     LOGGER.info("Deleting a roomType with id={}", roomTypeId);
-    roomTypeRepository.deleteById(roomTypeId);
+    roomTypeService.deleteRoomType(roomTypeId);
     return ResponseEntity.noContent().build();
   }
 }
