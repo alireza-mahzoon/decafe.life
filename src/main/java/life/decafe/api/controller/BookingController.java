@@ -52,7 +52,7 @@ public class BookingController {
   @PutMapping(value = "/{bookingId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Booking> updateBooking(@RequestBody Booking booking, @PathVariable Long bookingId) {
     LOGGER.info("Update a booking with Id={}", bookingId);
-    Booking bookingUpdated = bookingRepository.save(booking);
+    Booking bookingUpdated = bookingService.updateBooking(booking);
     return ResponseEntity.ok(bookingUpdated);
   }
 

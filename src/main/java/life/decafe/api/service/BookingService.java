@@ -34,4 +34,11 @@ public interface BookingService {
    * @return updated booking
    */
   Booking updateBooking(Booking booking);
+
+  /**
+   * Delete a booking
+   * @param bookingId
+   * @return
+   */
+  Void deleteBooking(Long bookingId);
 }
