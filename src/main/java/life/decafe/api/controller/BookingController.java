@@ -17,11 +17,10 @@ import java.util.Optional;
 @RequestMapping("/booking")
 public class BookingController {
   private static final Logger LOGGER = LoggerFactory.getLogger(BookingController.class);
-  private final BookingRepository bookingRepository;
   private final BookingService bookingService;
 
   @Autowired
-  public BookingController(BookingRepository bookingRepository, BookingService bookingService) { this.bookingRepository = bookingRepository;
+  public BookingController(BookingRepository bookingRepository, BookingService bookingService) {
     this.bookingService = bookingService;
   }
 
@@ -59,7 +58,7 @@ public class BookingController {
   @DeleteMapping(value = "/{bookingId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Void> deleteBooking(@PathVariable Long bookingId) {
     LOGGER.info("Deleting a booking with Id={}", bookingId);
-    bookingRepository.deleteById(bookingId);
+    bookingService.deleteBooking(bookingId);
     return ResponseEntity.noContent().build();
   }
 }
