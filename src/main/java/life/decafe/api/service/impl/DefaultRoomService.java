@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultRoomService implements RoomService {
@@ -36,5 +37,9 @@ public class DefaultRoomService implements RoomService {
     return roomRepository.findAllByHotelId(hotelId);
   }
 
-
+  @Override
+  public Optional<Room> findRoomById(Long roomId) {
+    LOGGER.debug("Find room with id={}", roomId);
+    return roomRepository.findById(roomId);
+  }
 }
