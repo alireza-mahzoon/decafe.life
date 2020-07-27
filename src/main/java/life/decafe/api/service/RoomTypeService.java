@@ -27,4 +27,11 @@ public interface RoomTypeService {
    * @return list of room types that exist in a hotel
    */
   List<RoomType> findAllRoomTypes(Long hotelId);
+
+  /**
+   * Update a room type
+   * @param roomType
+   * @return Updated room type
+   */
+  RoomType updateRoomType(RoomType roomType);
 }
