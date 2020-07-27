@@ -27,7 +27,7 @@ public class RoomAmenityController {
   @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/amenity", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<RoomAmenity>> getAllRoomAmenities(@PathVariable Long hotelId, @PathVariable Long roomtypeId) {
     LOGGER.info("Retrieving all room amenities");
-    List<RoomAmenity> roomAmenities = roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
+    List<RoomAmenity> roomAmenities = roomAmenityService.findAllRoomAmenities(roomtypeId);
     return ResponseEntity.ok(roomAmenities);
   }
 
@@ -51,7 +51,7 @@ public class RoomAmenityController {
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/roomamenity/{roomamenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<RoomAmenity> updateRoomAmenity(@RequestBody RoomAmenity roomAmenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomamenityId) {
     LOGGER.info("Updating room amenity with id={}", roomamenityId);
-    RoomAmenity roomamenityUpdated = roomAmenityRepository.save(roomAmenity);
+    RoomAmenity roomamenityUpdated = roomAmenityService.updateRoomAmenity(roomAmenity);
     return ResponseEntity.ok(roomAmenity);
   }
 
