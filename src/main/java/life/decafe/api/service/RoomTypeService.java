@@ -34,4 +34,12 @@ public interface RoomTypeService {
    * @return Updated room type
    */
   RoomType updateRoomType(RoomType roomType);
+
+  /**
+   * Delete a room type
+   * @param roomTypeId
+   * @return
+   */
+
+  Void deleteRoomType(Long roomTypeId);
 }
