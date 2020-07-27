@@ -37,4 +37,10 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
     LOGGER.debug("Find all room amenities in a room type with Id={}", roomtypeId);
     return roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
   }
+
+  @Override
+  public RoomAmenity updateRoomAmenity(RoomAmenity roomAmenity) {
+    LOGGER.debug("Update a room amenity");
+    return roomAmenityRepository.save(roomAmenity);
+  }
 }
