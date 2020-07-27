@@ -1,8 +1,8 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.Room;
 import life.decafe.api.model.entity.RoomType;
 import life.decafe.api.repository.RoomTypeRepository;
+import life.decafe.api.service.RoomTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,12 @@ import java.util.List;
 public class RoomTypeController {
   private static final Logger LOGGER = LoggerFactory.getLogger(RoomTypeController.class);
   private final RoomTypeRepository roomTypeRepository;
+  private final RoomTypeService roomTypeService;
 
   @Autowired
-  public RoomTypeController(RoomTypeRepository roomTypeRepository) { this.roomTypeRepository = roomTypeRepository; }
+  public RoomTypeController(RoomTypeRepository roomTypeRepository, RoomTypeService roomTypeService) { this.roomTypeRepository = roomTypeRepository;
+    this.roomTypeService = roomTypeService;
+  }
 
   @GetMapping(value = "/countRoomTypes")
   public ResponseEntity<Long> countRoomTypes() {
@@ -36,9 +39,9 @@ public class RoomTypeController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomType> createRoomType(@RequestBody RoomType roomType, @PathVariable Long hotelId) {
+  public ResponseEntity<RoomType> createRoomType(@RequestBody RoomType roomtype, @PathVariable Long hotelId) {
     LOGGER.info("Create a roomType for a hotel with id={}", hotelId);
-    RoomType createdRoomType = roomTypeRepository.save(roomType);
+    RoomType createdRoomType = roomTypeService.createRoomType(roomtype);
     return ResponseEntity.ok(createdRoomType);
   }
 
