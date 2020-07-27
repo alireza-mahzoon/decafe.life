@@ -25,10 +25,10 @@ public class RoomTypeController {
     this.roomTypeService = roomTypeService;
   }
 
-  @GetMapping(value = "/countRoomTypes")
+  @GetMapping(value = "/roomtype")
   public ResponseEntity<Long> countRoomTypes() {
     LOGGER.info("Counting number of roomTypes");
-    Long countRoomTypes = roomTypeRepository.count();
+    Long countRoomTypes = roomTypeService.countRoomTypes();
     return ResponseEntity.ok(countRoomTypes);
   }
 
