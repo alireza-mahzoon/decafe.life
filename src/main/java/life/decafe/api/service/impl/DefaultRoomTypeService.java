@@ -38,4 +38,10 @@ public class DefaultRoomTypeService implements RoomTypeService {
     LOGGER.debug("Find all room types for hotel with Id={}", hotelId);
     return  roomTypeRepository.findAllByHotelId(hotelId);
   }
+
+  @Override
+  public RoomType updateRoomType(RoomType roomType) {
+    LOGGER.debug("Update a room type");
+    return roomTypeRepository.save(roomType);
+  }
 }
