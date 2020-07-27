@@ -2,6 +2,7 @@ package life.decafe.api.service;
 
 import life.decafe.api.model.entity.Booking;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BookingService {
@@ -19,4 +20,11 @@ public interface BookingService {
    * @return booking if exists, empty optional otherwise
    */
   Optional<Booking> findBookingById(Long bookingId);
+
+  /**
+   * Find all bookings
+   * @param
+   * @return list of bookings
+   */
+  List<Booking> findAllBooking();
 }
