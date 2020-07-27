@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -29,5 +30,11 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   public Optional<RoomAmenity> findRoomAmenityById(Long roomAmenityId) {
     LOGGER.debug("Find room amenity by Id={}", roomAmenityId);
     return roomAmenityRepository.findById(roomAmenityId);
+  }
+
+  @Override
+  public List<RoomAmenity> findAllRoomAmenities(Long roomtypeId) {
+    LOGGER.debug("Find all room amenities in a room type with Id={}", roomtypeId);
+    return roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
   }
 }
