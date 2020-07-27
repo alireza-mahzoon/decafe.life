@@ -43,4 +43,11 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
     LOGGER.debug("Update a room amenity");
     return roomAmenityRepository.save(roomAmenity);
   }
+
+  @Override
+  public Void deleteRoomAmenityById(Long roomAmenityId) {
+    LOGGER.debug("Delete a room amenity by Id={}", roomAmenityId);
+    roomAmenityRepository.deleteById(roomAmenityId);
+    return null;
+  }
 }
