@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 
 
 @Service
@@ -23,6 +24,13 @@ public class DefaultBookingService implements BookingService {
   public Booking createBooking(Booking booking) {
     LOGGER.debug("Create a booking");
     return bookingRepository.save(booking);
+  }
+
+  @Override
+  public Optional<Booking> findBookingById(Long bookingId) {
+    LOGGER.debug("Find a booking by Id={}", bookingId);
+    bookingRepository.findById(bookingId);
+    return Optional.empty();
   }
 
 
