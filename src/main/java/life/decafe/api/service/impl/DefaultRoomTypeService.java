@@ -44,4 +44,11 @@ public class DefaultRoomTypeService implements RoomTypeService {
     LOGGER.debug("Update a room type");
     return roomTypeRepository.save(roomType);
   }
+
+  @Override
+  public Void deleteRoomType(Long roomTypeId) {
+    LOGGER.debug("Delete a room type by Id={}", roomTypeId);
+    roomTypeRepository.deleteById(roomTypeId);
+    return null;
+  }
 }
