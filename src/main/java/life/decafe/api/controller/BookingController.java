@@ -2,6 +2,7 @@ package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Booking;
 import life.decafe.api.repository.BookingRepository;
+import life.decafe.api.service.BookingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,11 @@ import java.util.Optional;
 public class BookingController {
   private static final Logger LOGGER = LoggerFactory.getLogger(BookingController.class);
   private final BookingRepository bookingRepository;
+  private final BookingService bookingService;
 
   @Autowired
-  public BookingController(BookingRepository bookingRepository) { this.bookingRepository = bookingRepository;
+  public BookingController(BookingRepository bookingRepository, BookingService bookingService) { this.bookingRepository = bookingRepository;
+    this.bookingService = bookingService;
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +45,7 @@ public class BookingController {
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
     LOGGER.info("Creating a booking");
-    Booking bookingCreated = bookingRepository.save(booking);
+    Booking bookingCreated = bookingService.createBooking(booking);
     return ResponseEntity.ok(bookingCreated);
   }
 
