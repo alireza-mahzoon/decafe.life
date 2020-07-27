@@ -35,7 +35,7 @@ public class BookingController {
   @GetMapping(value = "/{bookingId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
     LOGGER.info("Retrieving booking by Id={}", bookingId);
-    Optional<Booking> booking = bookingRepository.findById(bookingId);
+    Optional<Booking> booking = bookingService.findBookingById(bookingId);
     if(booking.isPresent()) {
       return ResponseEntity.ok(booking.get());
     }
