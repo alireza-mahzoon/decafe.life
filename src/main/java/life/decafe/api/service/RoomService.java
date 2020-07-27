@@ -33,4 +33,11 @@ public interface RoomService {
    * @return room if exists, empty optional otherwise
    */
   Optional<Room> findRoomById(Long roomId);
+
+  /**
+   * Delete a room
+   * @param roomId
+   * @return
+   */
+  Void deleteRoom(Long roomId);
 }
