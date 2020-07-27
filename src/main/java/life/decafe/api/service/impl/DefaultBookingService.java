@@ -30,8 +30,7 @@ public class DefaultBookingService implements BookingService {
   @Override
   public Optional<Booking> findBookingById(Long bookingId) {
     LOGGER.debug("Find a booking by Id={}", bookingId);
-    bookingRepository.findById(bookingId);
-    return Optional.empty();
+    return bookingRepository.findById(bookingId);
   }
 
   @Override
