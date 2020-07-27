@@ -27,4 +27,11 @@ public interface BookingService {
    * @return list of bookings
    */
   List<Booking> findAllBooking();
+
+  /**
+   * Update a booking
+   * @param booking
+   * @return updated booking
+   */
+  Booking updateBooking(Booking booking);
 }
