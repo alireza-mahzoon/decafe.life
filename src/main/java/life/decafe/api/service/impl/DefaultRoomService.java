@@ -49,4 +49,10 @@ public class DefaultRoomService implements RoomService {
     roomRepository.deleteById(roomId);
     return null;
   }
+
+  @Override
+  public Long countRooms() {
+    LOGGER.debug("Count number of rooms");
+    return roomRepository.count();
+  }
 }
