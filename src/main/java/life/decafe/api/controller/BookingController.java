@@ -28,7 +28,7 @@ public class BookingController {
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Booking>> getAllBookings() {
     LOGGER.info("Retrieving all bookings");
-    List<Booking> bookings = bookingRepository.findAll();
+    List<Booking> bookings = bookingService.findAllBooking();
     return ResponseEntity.ok(bookings);
   }
 
