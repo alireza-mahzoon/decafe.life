@@ -27,7 +27,7 @@ public class RoomController {
   @GetMapping(value = "/hotel/{hotelId}/room", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<Room>> getAllRooms(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving all rooms");
-    List<Room> rooms = roomRepository.findAllByHotelId(hotelId);
+    List<Room> rooms = roomService.findAllRooms(hotelId);
     return ResponseEntity.ok(rooms);
   }
 
