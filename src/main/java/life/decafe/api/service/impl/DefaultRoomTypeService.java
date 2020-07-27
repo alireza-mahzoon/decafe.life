@@ -51,4 +51,10 @@ public class DefaultRoomTypeService implements RoomTypeService {
     roomTypeRepository.deleteById(roomTypeId);
     return null;
   }
+
+  @Override
+  public Long countRoomTypes() {
+    LOGGER.debug("Count number of room types");
+    return roomTypeRepository.count();
+  }
 }
