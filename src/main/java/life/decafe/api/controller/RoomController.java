@@ -1,7 +1,6 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Room;
-import life.decafe.api.repository.RoomRepository;
 import life.decafe.api.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,12 +15,10 @@ import java.util.Optional;
 @RestController
 public class RoomController {
   private static final Logger LOGGER = LoggerFactory.getLogger(RoomController.class);
-  private final RoomRepository roomRepository;
   private final RoomService roomService;
 
   @Autowired
-  public RoomController(RoomRepository roomRepository, RoomService roomService) {
-    this.roomRepository = roomRepository;
+  public RoomController(RoomService roomService) {
     this.roomService = roomService;
   }
 
@@ -59,14 +56,14 @@ public class RoomController {
   @GetMapping(value = "/count", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Long> countRooms() {
     LOGGER.info("Counting number of rooms");
-    Long countRooms = roomRepository.count();
+    Long countRooms = roomService.countRooms();
     return ResponseEntity.ok(countRooms);
   }
 
   @DeleteMapping(value = "hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}")
   public ResponseEntity<Void> delteRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Deleting room by id={}", roomId);
-    roomRepository.deleteById(roomId);
+    roomService.deleteRoom(roomId);
     return ResponseEntity.noContent().build();
   }
 }
