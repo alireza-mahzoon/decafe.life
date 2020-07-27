@@ -16,11 +16,10 @@ import java.util.Optional;
 @RestController
 public class RoomAmenityController {
   private static final Logger LOGGER = LoggerFactory.getLogger(RoomAmenityController.class);
-  private final RoomAmenityRepository roomAmenityRepository;
   private final RoomAmenityService roomAmenityService;
 
   @Autowired
-  public RoomAmenityController(RoomAmenityRepository roomAmenityRepository, RoomAmenityService roomAmenityService) { this.roomAmenityRepository = roomAmenityRepository;
+  public RoomAmenityController(RoomAmenityRepository roomAmenityRepository, RoomAmenityService roomAmenityService) { 
     this.roomAmenityService = roomAmenityService;
   }
 
@@ -55,10 +54,10 @@ public class RoomAmenityController {
     return ResponseEntity.ok(roomAmenity);
   }
 
-  @DeleteMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeid}/roomamenity/{roomamenityid}")
-  public ResponseEntity<Void> deleteRoomAmenityById(@PathVariable Long hotelId, @PathVariable Long roomtypeid, @PathVariable Long roomamenityid) {
-    LOGGER.info("Delete a room amenity by id={}", roomamenityid);
-    roomAmenityRepository.deleteById(roomamenityid);
+  @DeleteMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeid}/amenity/{amenityid}")
+  public ResponseEntity<Void> deleteRoomAmenityById(@PathVariable Long hotelId, @PathVariable Long roomtypeid, @PathVariable Long amenityid) {
+    LOGGER.info("Delete a room amenity by id={}", amenityid);
+    roomAmenityService.deleteRoomAmenityById(amenityid);
     return ResponseEntity.noContent().build();
   }
 }
