@@ -35,4 +35,11 @@ public interface RoomAmenityService {
    * @return Updated room amenity
    */
    RoomAmenity updateRoomAmenity(RoomAmenity roomAmenity);
+
+  /**
+   * Delete a room amenity
+   * @param roomAmenityId
+   * @return
+   */
+  Void deleteRoomAmenityById(Long roomAmenityId);
 }
