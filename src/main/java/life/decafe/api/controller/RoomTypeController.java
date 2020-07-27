@@ -42,10 +42,10 @@ public class RoomTypeController {
     return ResponseEntity.notFound().build();
   }
 
-  @GetMapping(value = "/hotel/{hotelId}/roomtype-list", produces = MediaType.APPLICATION_JSON_VALUE)
+  @GetMapping(value = "/hotel/{hotelId}/roomtype", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<RoomType>> getAllRoomTypes(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving all roomTypes");
-    List<RoomType> roomTypes = roomTypeRepository.findAllByHotelId(hotelId);
+    List<RoomType> roomTypes = roomTypeService.findAllRoomTypes(hotelId);
     return ResponseEntity.ok(roomTypes);
   }
 
