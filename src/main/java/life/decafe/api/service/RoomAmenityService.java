@@ -2,6 +2,7 @@ package life.decafe.api.service;
 
 import life.decafe.api.model.entity.RoomAmenity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RoomAmenityService {
@@ -20,4 +21,11 @@ public interface RoomAmenityService {
    * @return room amenity if exists, empty optional otherwise
    */
    Optional<RoomAmenity> findRoomAmenityById(Long roomAmenityId);
+
+  /**
+   * Find all room amenities in a room type
+   * @param roomtypeId
+   * @return List of room amenities
+   */
+  List<RoomAmenity> findAllRoomAmenities(Long roomtypeId);
 }
