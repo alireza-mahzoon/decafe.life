@@ -42,4 +42,11 @@ public class DefaultRoomService implements RoomService {
     LOGGER.debug("Find room with id={}", roomId);
     return roomRepository.findById(roomId);
   }
+
+  @Override
+  public Void deleteRoom(Long roomId) {
+    LOGGER.debug("Delete a room by id={}", roomId);
+    roomRepository.deleteById(roomId);
+    return null;
+  }
 }
