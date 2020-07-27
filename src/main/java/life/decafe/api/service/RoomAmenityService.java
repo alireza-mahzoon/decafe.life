@@ -1,0 +1,23 @@
+package life.decafe.api.service;
+
+import life.decafe.api.model.entity.RoomAmenity;
+
+import java.util.Optional;
+
+public interface RoomAmenityService {
+
+  /**
+   * Create new room amenity
+   * @param roomAmenity
+   * @return newly created room amenity
+   */
+   RoomAmenity createRoomAmenity(RoomAmenity roomAmenity);
+
+
+  /**
+   * Find room amenity by its Id
+   * @param roomAmenityId
+   * @return room amenity if exists, empty optional otherwise
+   */
+   Optional<RoomAmenity> findRoomAmenityById(Long roomAmenityId);
+}
