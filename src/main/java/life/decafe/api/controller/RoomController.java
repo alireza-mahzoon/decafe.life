@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class RoomController {
@@ -29,6 +30,16 @@ public class RoomController {
     LOGGER.info("Retrieving all rooms");
     List<Room> rooms = roomService.findAllRooms(hotelId);
     return ResponseEntity.ok(rooms);
+  }
+  
+  @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Room> findRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
+    LOGGER.info("Retrieving room by Id ={}", roomId);
+    Optional<Room> room = roomService.findRoomById(roomId);
+    if (room.isPresent()) {
+      return ResponseEntity.ok(room.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
