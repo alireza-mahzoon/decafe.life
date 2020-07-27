@@ -27,5 +27,12 @@ public interface RoomAmenityService {
    * @param roomtypeId
    * @return List of room amenities
    */
-  List<RoomAmenity> findAllRoomAmenities(Long roomtypeId);
+   List<RoomAmenity> findAllRoomAmenities(Long roomtypeId);
+
+  /**
+   * Update a room amenity
+   * @param roomAmenity
+   * @return Updated room amenity
+   */
+   RoomAmenity updateRoomAmenity(RoomAmenity roomAmenity);
 }
