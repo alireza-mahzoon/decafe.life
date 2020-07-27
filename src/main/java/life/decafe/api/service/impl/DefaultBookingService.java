@@ -39,4 +39,10 @@ public class DefaultBookingService implements BookingService {
     LOGGER.debug("Find all bookings");
     return bookingRepository.findAll();
   }
+
+  @Override
+  public Booking updateBooking(Booking booking) {
+    LOGGER.debug("Update a booking");
+    return bookingRepository.save(booking);
+  }
 }
