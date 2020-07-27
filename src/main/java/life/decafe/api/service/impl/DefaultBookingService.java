@@ -45,4 +45,11 @@ public class DefaultBookingService implements BookingService {
     LOGGER.debug("Update a booking");
     return bookingRepository.save(booking);
   }
+
+  @Override
+  public Void deleteBooking(Long bookingId) {
+    LOGGER.debug("Delete a booking");
+    bookingRepository.deleteById(bookingId);
+    return null;
+  }
 }
