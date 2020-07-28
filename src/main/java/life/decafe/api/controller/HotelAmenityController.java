@@ -5,6 +5,7 @@ import life.decafe.api.repository.HotelAmenityRepository;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +16,10 @@ import java.util.Optional;
 @RestController
 public class HotelAmenityController {
   private static final Logger LOGGER = LoggerFactory.getLogger(HotelAmenityController.class);
-  private final HotelAmenityRepository hotelAmenityRepository;
   private final HotelAmenityService hotelAmenityService;
 
-  public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository, HotelAmenityService hotelAmenityService) {this.hotelAmenityRepository = hotelAmenityRepository;
+  @Autowired
+  public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository, HotelAmenityService hotelAmenityService) {
     this.hotelAmenityService = hotelAmenityService;
   }
 
@@ -29,8 +30,8 @@ public class HotelAmenityController {
     return ResponseEntity.ok(hotelAmenities);
   }
 
-  @GetMapping(value = "/amenity/{amenityId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> findHotelAmenity(@PathVariable Long amenityId) {
+  @GetMapping(value = "/hotel/{hotelId}/amenity/{amenityId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HotelAmenity> getHotelAmenity(@PathVariable Long hotelId, @PathVariable Long amenityId) {
     LOGGER.info("Find a hotel amenity with Id={}", amenityId);
     Optional<HotelAmenity> hotelAmenity = hotelAmenityService.findHotelAmenityById(amenityId);
     if (hotelAmenity.isPresent()) {
@@ -46,17 +47,17 @@ public class HotelAmenityController {
     return ResponseEntity.ok(CreatedHotelAmenity);
   }
 
-  @PutMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> updateHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
-    LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", hotelAmenityId, hotelId);
+  @PutMapping(value = "/hotel/{hotelId}/amenity/{amenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HotelAmenity> updateHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId, @PathVariable Long amenityId) {
+    LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", amenityId, hotelId);
     HotelAmenity updatedHotelAmenity = hotelAmenityService.updateHotelAmenity(hotelAmenity);
     return ResponseEntity.ok(updatedHotelAmenity);
   }
 
-  @DeleteMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}")
-  public ResponseEntity<Void> deleteHotelAmenityById(@PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
-    LOGGER.info("Delete a hotel amenity with Id={}", hotelAmenityId);
-    hotelAmenityService.deleteHotelAmenityById(hotelAmenityId);
+  @DeleteMapping(value = "/hotel/{hotelId}/amenity/{amenityId}")
+  public ResponseEntity<Void> deleteHotelAmenityById(@PathVariable Long hotelId, @PathVariable Long amenityId) {
+    LOGGER.info("Delete a hotel amenity with Id={}", amenityId);
+    hotelAmenityService.deleteHotelAmenityById(amenityId);
     return ResponseEntity.noContent().build();
   }
 }
