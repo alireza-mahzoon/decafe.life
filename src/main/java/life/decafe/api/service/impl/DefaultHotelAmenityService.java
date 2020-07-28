@@ -43,4 +43,11 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
     LOGGER.debug("find all hotel amenities with hotel Id={}", hotelId);
     return hotelAmenityRepository.findAllByHotelId(hotelId);
   }
+
+  @Override
+  public Void deleteHotelAmenityById(Long hotelAmenityId) {
+    LOGGER.debug("Delete hotel amenity with Id={}", hotelAmenityId);
+    hotelAmenityRepository.deleteById(hotelAmenityId);
+    return null;
+  }
 }
