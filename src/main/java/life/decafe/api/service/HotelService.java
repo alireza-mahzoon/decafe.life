@@ -42,4 +42,11 @@ public interface HotelService {
    * @return
    */
   Void deleteById(Long hotelId);
+
+  /**
+   * Update hotel
+   * @param hotel
+   * @return Updated hotel
+   */
+  Hotel updateHotel(Hotel hotel);
 }

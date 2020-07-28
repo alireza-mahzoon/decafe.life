@@ -56,4 +56,10 @@ public class DefaultHotelService implements HotelService {
     hotelRepository.deleteById(hotelId);
     return null;
   }
+
+  @Override
+  public Hotel updateHotel(Hotel hotel) {
+    LOGGER.debug("Update hotel");
+    return hotelRepository.save(hotel);
+  }
 }
