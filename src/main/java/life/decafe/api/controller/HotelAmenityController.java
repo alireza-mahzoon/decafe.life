@@ -56,7 +56,7 @@ public class HotelAmenityController {
   @DeleteMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}")
   public ResponseEntity<Void> deleteHotelAmenityById(@PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
     LOGGER.info("Delete a hotel amenity with Id={}", hotelAmenityId);
-    hotelAmenityRepository.deleteById(hotelAmenityId);
+    hotelAmenityService.deleteHotelAmenityById(hotelAmenityId);
     return ResponseEntity.noContent().build();
   }
 }
