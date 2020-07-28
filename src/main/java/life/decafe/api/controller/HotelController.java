@@ -54,6 +54,13 @@ public class HotelController {
     return ResponseEntity.ok(hotelCreated);
   }
 
+  @PutMapping(value = "/{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<Hotel> updateHotelById(@RequestBody Hotel hotel, @PathVariable Long hotelId) {
+    LOGGER.info("Update a hotel");
+    Hotel updatedHotel = hotelService.updateHotel(hotel);
+    return ResponseEntity.ok(updatedHotel);
+  }
+
   @GetMapping(value = "/{hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving hotel by Id={}", hotelId);
