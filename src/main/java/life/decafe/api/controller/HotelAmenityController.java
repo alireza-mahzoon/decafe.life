@@ -5,12 +5,12 @@ import life.decafe.api.repository.HotelAmenityRepository;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class HotelAmenityController {
@@ -18,7 +18,6 @@ public class HotelAmenityController {
   private final HotelAmenityRepository hotelAmenityRepository;
   private final HotelAmenityService hotelAmenityService;
 
-  @Autowired
   public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository, HotelAmenityService hotelAmenityService) {this.hotelAmenityRepository = hotelAmenityRepository;
     this.hotelAmenityService = hotelAmenityService;
   }
@@ -28,6 +27,16 @@ public class HotelAmenityController {
     LOGGER.info("Retrieving all hotel amenities");
     List<HotelAmenity> hotelAmenities = hotelAmenityRepository.findAll();
     return ResponseEntity.ok(hotelAmenities);
+  }
+
+  @GetMapping(value = "/amenity/{amenityId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<HotelAmenity> findHotelAmenity(@PathVariable Long amenityId) {
+    LOGGER.info("Find a hotel amenity with Id={}", amenityId);
+    Optional<HotelAmenity> hotelAmenity = hotelAmenityService.findHotelAmenityById(amenityId);
+    if (hotelAmenity.isPresent()) {
+      return ResponseEntity.ok(hotelAmenity.get());
+    }
+    return ResponseEntity.notFound().build();
   }
 
   @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -40,7 +49,7 @@ public class HotelAmenityController {
   @PutMapping(value = "/hotel/{hotelId}/amenity/{hotelAmenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<HotelAmenity> updateHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId, @PathVariable Long hotelAmenityId) {
     LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", hotelAmenityId, hotelId);
-    HotelAmenity updatedHotelAmenity = hotelAmenityRepository.save(hotelAmenity);
+    HotelAmenity updatedHotelAmenity = hotelAmenityService.updateHotelAmenity(hotelAmenity);
     return ResponseEntity.ok(updatedHotelAmenity);
   }
 
