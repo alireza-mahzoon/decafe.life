@@ -2,6 +2,7 @@ package life.decafe.api.service;
 
 import life.decafe.api.model.entity.HotelAmenity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface HotelAmenityService {
@@ -26,4 +27,11 @@ public interface HotelAmenityService {
    * @return Updated hotel amenity
    */
   HotelAmenity updateHotelAmenity(HotelAmenity hotelAmenity);
+
+  /**
+   * Find all hotel amenities for with hotelAmenity Id
+   * @param hotelId
+   * @return List of hotel amenities
+   */
+  List<HotelAmenity> findAllHotelAmenities(Long hotelId);
 }
