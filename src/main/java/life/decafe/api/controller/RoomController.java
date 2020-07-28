@@ -48,7 +48,7 @@ public class RoomController {
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<Room> updateRoom(@RequestBody Room room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
-    LOGGER.info("Updating a room with Id ={}, with hotelId={} and roomTypeId={}", roomId, hotelId, roomtypeId);
+    LOGGER.info("Updating a room with Id ={}", roomId);
     Room roomUpdated = roomService.updateRoom(room);
     return ResponseEntity.ok(roomUpdated);
   }

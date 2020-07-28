@@ -17,11 +17,10 @@ import java.util.Optional;
 
 public class RoomTypeController {
   private static final Logger LOGGER = LoggerFactory.getLogger(RoomTypeController.class);
-  private final RoomTypeRepository roomTypeRepository;
   private final RoomTypeService roomTypeService;
 
   @Autowired
-  public RoomTypeController(RoomTypeRepository roomTypeRepository, RoomTypeService roomTypeService) { this.roomTypeRepository = roomTypeRepository;
+  public RoomTypeController(RoomTypeRepository roomTypeRepository, RoomTypeService roomTypeService) {
     this.roomTypeService = roomTypeService;
   }
 

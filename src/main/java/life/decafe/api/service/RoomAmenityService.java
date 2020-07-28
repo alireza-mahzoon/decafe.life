@@ -14,7 +14,6 @@ public interface RoomAmenityService {
    */
    RoomAmenity createRoomAmenity(RoomAmenity roomAmenity);
 
-
   /**
    * Find room amenity by its Id
    * @param roomAmenityId

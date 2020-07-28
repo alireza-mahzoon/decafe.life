@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.Hotel;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.HotelDto;
 import life.decafe.api.repository.HotelRepository;
 import life.decafe.api.service.HotelService;
 import org.slf4j.Logger;
@@ -15,17 +17,19 @@ import java.util.Optional;
 public class DefaultHotelService implements HotelService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelService.class);
   private final HotelRepository hotelRepository;
+  private final BeanMapper beanMapper;
 
   @Autowired
-  public DefaultHotelService(HotelRepository hotelRepository){
+  public DefaultHotelService(HotelRepository hotelRepository, BeanMapper beanMapper){
     this.hotelRepository = hotelRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
-  public Hotel createHotel(Hotel hotel) {
+  public HotelDto createHotel(HotelDto hotel) {
     LOGGER.debug("Create a hotel");
-    Hotel hotelCreated = hotelRepository.save(hotel);
-    return hotelCreated;
+    Hotel hotelCreated = hotelRepository.save(beanMapper.map(hotel));
+    return beanMapper.map(hotelCreated);
   }
 
   @Override
