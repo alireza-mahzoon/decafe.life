@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Hotel;
+import life.decafe.api.model.rest.HotelDto;
 import life.decafe.api.repository.HotelRepository;
 import life.decafe.api.service.HotelService;
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,9 +48,9 @@ public class HotelController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+  public ResponseEntity<HotelDto> createHotel(@Validated @RequestBody HotelDto hotel) {
     LOGGER.info("Creating a hotel");
-    Hotel hotelCreated = hotelService.createHotel(hotel);
+    HotelDto hotelCreated = hotelService.createHotel(hotel);
     return ResponseEntity.ok(hotelCreated);
   }
 
