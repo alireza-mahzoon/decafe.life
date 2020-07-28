@@ -2,6 +2,7 @@ package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.HotelAmenity;
 import life.decafe.api.repository.HotelAmenityRepository;
+import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,16 +10,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
 import java.util.List;
 
 @RestController
 public class HotelAmenityController {
   private static final Logger LOGGER = LoggerFactory.getLogger(HotelAmenityController.class);
   private final HotelAmenityRepository hotelAmenityRepository;
+  private final HotelAmenityService hotelAmenityService;
 
   @Autowired
-  public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository) {this.hotelAmenityRepository = hotelAmenityRepository; }
+  public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository, HotelAmenityService hotelAmenityService) {this.hotelAmenityRepository = hotelAmenityRepository;
+    this.hotelAmenityService = hotelAmenityService;
+  }
 
   @GetMapping(value = "/hotel/{hotelId}/amenity",  produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<List<HotelAmenity>> getAllHotelAmenities(@PathVariable Long hotelId) {
@@ -28,9 +31,9 @@ public class HotelAmenityController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId) {
+  public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity amenity, @PathVariable Long hotelId) {
     LOGGER.info("Create a hotel amenity");
-    HotelAmenity CreatedHotelAmenity = hotelAmenityRepository.save(hotelAmenity);
+    HotelAmenity CreatedHotelAmenity = hotelAmenityService.createHotelAmenity(amenity);
     return ResponseEntity.ok(CreatedHotelAmenity);
   }
 
