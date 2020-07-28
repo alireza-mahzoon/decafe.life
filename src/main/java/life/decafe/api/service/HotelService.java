@@ -1,6 +1,7 @@
 package life.decafe.api.service;
 
 import life.decafe.api.model.entity.Hotel;
+import life.decafe.api.model.rest.HotelDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +10,10 @@ public interface HotelService {
 
   /**
    * Create new hotel
-   * @param hotel hotel
+   * @param hotelDto hotel
    * @return newly created hotel
    */
-  Hotel createHotel(Hotel hotel);
+  HotelDto createHotel(HotelDto hotelDto);
 
   /**
    * Find hotel by its Id
