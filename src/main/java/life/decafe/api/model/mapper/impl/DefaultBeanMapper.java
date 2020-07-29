@@ -1,9 +1,11 @@
 package life.decafe.api.model.mapper.impl;
 
 import life.decafe.api.model.entity.Hotel;
+import life.decafe.api.model.entity.Profile;
 import life.decafe.api.model.entity.Room;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.HotelDto;
+import life.decafe.api.model.rest.ProfileDto;
 import life.decafe.api.model.rest.RoomDto;
 import org.springframework.stereotype.Component;
 
@@ -61,5 +63,30 @@ public class DefaultBeanMapper implements BeanMapper {
     room.setRegistered(roomDto.getRegistered());
     room.setUpdated(roomDto.getUpdated());
     return room; 
+  }
+
+  @Override
+  public ProfileDto map(Profile profile) {
+    ProfileDto profileDto = new ProfileDto();
+    profileDto.setId(profile.getId());
+    profileDto.setFirstName(profile.getFirstName());
+    profileDto.setLastName(profile.getLastName());
+    profileDto.setEmail(profile.getEmail());
+    profileDto.setRegistered(profile.getRegistered());
+    profileDto.setUpdated(profile.getUpdated());
+    return null;
+  }
+
+  @Override
+  public Profile map(ProfileDto profileDto) {
+    Profile profile = new Profile();
+    profile.setId(profileDto.getId());
+    profile.setFirstName(profileDto.getFirstName());
+    profile.setLastName(profileDto.getLastName());
+    profile.setBirthday(profileDto.getBirthday());
+    profile.setEmail(profileDto.getEmail());
+    profile.setRegistered(profileDto.getRegistered());
+    profile.setUpdated(profileDto.getUpdated());
+    return null;
   }
 }
