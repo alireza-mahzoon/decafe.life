@@ -34,9 +34,9 @@ public class ProfileController {
   }
 
   @GetMapping(value = "/{profileId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Profile> findProfile(@PathVariable Long profileId) {
+  public ResponseEntity<ProfileDto> findProfile(@PathVariable Long profileId) {
     LOGGER.info("Retrieving profile by Id={}", profileId);
-    Optional<Profile> profile = profileService.findProfileById(profileId);
+    Optional<ProfileDto> profile = profileService.findProfileById(profileId);
     if (profile.isPresent()) {
       return ResponseEntity.ok(profile.get());
     }
