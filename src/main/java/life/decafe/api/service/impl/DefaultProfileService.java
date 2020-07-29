@@ -58,8 +58,9 @@ public class DefaultProfileService implements ProfileService {
   }
 
   @Override
-  public Profile updateProfile(Profile profile) {
+  public ProfileDto updateProfile(ProfileDto profile) {
     LOGGER.debug("Update profile information");
-    return profileRepository.save(profile);
+    Profile profileUpdated = profileRepository.save(beanMapper.map(profile));
+    return beanMapper.map(profileUpdated);
   }
 }

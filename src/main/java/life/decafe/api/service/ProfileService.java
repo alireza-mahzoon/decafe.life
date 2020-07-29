@@ -43,5 +43,5 @@ public interface ProfileService {
    * @return updated profile
    */
 
-  Profile updateProfile(Profile profile);
+  ProfileDto updateProfile(ProfileDto profile);
 }
