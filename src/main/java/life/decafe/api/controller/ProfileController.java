@@ -44,9 +44,9 @@ public class ProfileController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
+  public ResponseEntity<ProfileDto> createProfile(@RequestBody ProfileDto profile) {
     LOGGER.info("Creating a profile");
-    Profile userProfile = profileService.createProfile(profile);
+    ProfileDto userProfile = profileService.createProfile(profile);
     return ResponseEntity.ok(userProfile);
   }
 
