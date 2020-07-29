@@ -2,6 +2,7 @@ package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.entity.Profile;
+import life.decafe.api.model.rest.ProfileDto;
 import life.decafe.api.repository.ProfileRepository;
 import life.decafe.api.service.ProfileService;
 import org.slf4j.Logger;
@@ -26,9 +27,9 @@ public class ProfileController {
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<Profile>> getAllUsers() {
+  public ResponseEntity<List<ProfileDto>> getAllUsers() {
     LOGGER.info("Retrieving all users");
-    List<Profile> users = profileService.findAllProfiles();
+    List<ProfileDto> users = profileService.findAllProfiles();
     return ResponseEntity.ok(users);
   }
 
