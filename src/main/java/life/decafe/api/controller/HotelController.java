@@ -27,9 +27,9 @@ public class HotelController {
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<Hotel>> getAllHotels() {
+  public ResponseEntity<List<HotelDto>> getAllHotels() {
     LOGGER.info("Retrieving all hotels");
-    List<Hotel> hotels = hotelService.findAllHotels();
+    List<HotelDto> hotels = hotelService.findAllHotels();
     return ResponseEntity.ok(hotels);
   }
 
@@ -55,16 +55,16 @@ public class HotelController {
   }
 
   @PutMapping(value = "/{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Hotel> updateHotelById(@RequestBody Hotel hotel, @PathVariable Long hotelId) {
+  public ResponseEntity<HotelDto> updateHotelById(@RequestBody HotelDto hotel, @PathVariable Long hotelId) {
     LOGGER.info("Update a hotel");
-    Hotel updatedHotel = hotelService.updateHotel(hotel);
+    HotelDto updatedHotel = hotelService.updateHotel(hotel);
     return ResponseEntity.ok(updatedHotel);
   }
 
   @GetMapping(value = "/{hotelId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Hotel> getHotelById(@PathVariable Long hotelId) {
+  public ResponseEntity<HotelDto> getHotelById(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving hotel by Id={}", hotelId);
-    Optional<Hotel> hotel = hotelService.findHotelById(hotelId);
+    Optional<HotelDto> hotel = hotelService.findHotelById(hotelId);
     if (hotel.isPresent()) {
       return ResponseEntity.ok(hotel.get());
     }
