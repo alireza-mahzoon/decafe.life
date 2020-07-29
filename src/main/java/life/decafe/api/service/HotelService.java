@@ -20,7 +20,7 @@ public interface HotelService {
    * @param hotelId hotel Id
    * @return hotel if exists, empty optional otherwise
    */
-  Optional<Hotel> findHotelById(Long hotelId);
+  Optional<HotelDto> findHotelById(Long hotelId);
 
   /**
    * Find all hotels

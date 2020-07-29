@@ -34,11 +34,11 @@ public class DefaultHotelService implements HotelService {
   }
 
   @Override
-  public Optional<Hotel> findHotelById(Long hotelId) {
+  public Optional<HotelDto> findHotelById(Long hotelId) {
     LOGGER.debug("Find a hotel by Id={}", hotelId);
     Optional<Hotel> hotel = hotelRepository.findById(hotelId);
     Optional<HotelDto> hotelDto = Optional.of(beanMapper.map(hotel.get()));
-    return hotel;
+    return hotelDto;
   }
 
   @Override
