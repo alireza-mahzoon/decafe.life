@@ -66,9 +66,9 @@ public class DefaultHotelService implements HotelService {
   }
 
   @Override
-  public Hotel updateHotel(Hotel hotel) {
+  public HotelDto updateHotel(HotelDto hotel) {
     LOGGER.debug("Update hotel");
-    Hotel hotelUpdated = hotelRepository.save(hotel);
-    return hotelUpdated;
+    Hotel hotelUpdated = hotelRepository.save(beanMapper.map(hotel));
+    return beanMapper.map(hotelUpdated);
   }
 }

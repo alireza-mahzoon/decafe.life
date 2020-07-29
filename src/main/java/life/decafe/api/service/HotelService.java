@@ -48,5 +48,5 @@ public interface HotelService {
    * @param hotel
    * @return Updated hotel
    */
-  Hotel updateHotel(Hotel hotel);
+  HotelDto updateHotel(HotelDto hotel);
 }
