@@ -10,10 +10,10 @@ public interface HotelService {
 
   /**
    * Create new hotel
-   * @param hotelDto hotel
+   * @param hotel hotel
    * @return newly created hotel
    */
-  HotelDto createHotel(HotelDto hotelDto);
+  HotelDto createHotel(HotelDto hotel);
 
   /**
    * Find hotel by its Id

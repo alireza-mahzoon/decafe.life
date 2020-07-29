@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class DefaultHotelService implements HotelService {
   private final BeanMapper beanMapper;
 
   @Autowired
-  public DefaultHotelService(HotelRepository hotelRepository, BeanMapper beanMapper){
+  public DefaultHotelService(HotelRepository hotelRepository, BeanMapper beanMapper, HotelService hotelService){
     this.hotelRepository = hotelRepository;
     this.beanMapper = beanMapper;
   }
@@ -35,13 +36,16 @@ public class DefaultHotelService implements HotelService {
   @Override
   public Optional<Hotel> findHotelById(Long hotelId) {
     LOGGER.debug("Find a hotel by Id={}", hotelId);
-    return hotelRepository.findById(hotelId);
+    Optional<Hotel> hotel = hotelRepository.findById(hotelId);
+    Optional<HotelDto> hotelDto = Optional.of(beanMapper.map(hotel.get()));
+    return hotel;
   }
 
   @Override
   public List<Hotel> findAllHotels() {
     LOGGER.debug("Find all hotels");
-    return hotelRepository.findAll();
+    List<Hotel> hotels = hotelRepository.findAll();
+    return hotels;
   }
 
   @Override
@@ -60,6 +64,7 @@ public class DefaultHotelService implements HotelService {
   @Override
   public Hotel updateHotel(Hotel hotel) {
     LOGGER.debug("Update hotel");
-    return hotelRepository.save(hotel);
+    Hotel hotelUpdated = hotelRepository.save(hotel);
+    return hotelUpdated;
   }
 }
