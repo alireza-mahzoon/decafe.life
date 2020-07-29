@@ -27,7 +27,7 @@ public interface HotelService {
    * @param
    * @return hotel list
    */
-  List<Hotel> findAllHotels();
+  List<HotelDto> findAllHotels();
 
   /**
    * Count number of hotels

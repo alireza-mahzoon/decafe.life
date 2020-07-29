@@ -42,10 +42,14 @@ public class DefaultHotelService implements HotelService {
   }
 
   @Override
-  public List<Hotel> findAllHotels() {
+  public List<HotelDto> findAllHotels() {
     LOGGER.debug("Find all hotels");
     List<Hotel> hotels = hotelRepository.findAll();
-    return hotels;
+    List<HotelDto> hotelDtos = new ArrayList<>();
+    for (Hotel hotel: hotels) {
+      hotelDtos.add(beanMapper.map(hotel));
+    }
+    return hotelDtos;
   }
 
   @Override
