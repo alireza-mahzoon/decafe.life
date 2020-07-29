@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +32,14 @@ public class DefaultProfileService implements ProfileService {
   }
 
   @Override
-  public List<Profile> findAllProfiles() {
+  public List<ProfileDto> findAllProfiles() {
     LOGGER.debug("Find all profiles");
-    return profileRepository.findAll();
+    List<Profile> profiles = profileRepository.findAll();
+    List<ProfileDto> profileDtos = new ArrayList<>();
+    for (Profile profile: profiles) {
+      profileDtos.add(beanMapper.map(profile));
+    }
+    return profileDtos;
   }
 
   @Override

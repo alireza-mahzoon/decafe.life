@@ -21,7 +21,7 @@ public interface ProfileService {
    * @return List of profiles
    */
 
-  List<Profile> findAllProfiles();
+  List<ProfileDto> findAllProfiles();
 
   /**
    * Find profile by its Id
