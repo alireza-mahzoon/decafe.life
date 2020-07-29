@@ -1,6 +1,7 @@
 package life.decafe.api.service;
 
 import life.decafe.api.model.entity.Profile;
+import life.decafe.api.model.rest.ProfileDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface ProfileService {
    * @param profile
    * @return newly created profile
    */
-  Profile createProfile(Profile profile);
+  ProfileDto createProfile(ProfileDto profile);
 
   /**
    * Find all profiles

@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.Profile;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.ProfileDto;
 import life.decafe.api.repository.ProfileRepository;
 import life.decafe.api.service.ProfileService;
 import org.slf4j.Logger;
@@ -14,16 +16,18 @@ import java.util.Optional;
 public class DefaultProfileService implements ProfileService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultProfileService.class);
   private final ProfileRepository profileRepository;
+  private final BeanMapper beanMapper;
 
-  public DefaultProfileService(ProfileRepository profileRepository) {
+  public DefaultProfileService(ProfileRepository profileRepository, BeanMapper beanMapper) {
     this.profileRepository = profileRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
-  public Profile createProfile(Profile profile) {
+  public ProfileDto createProfile(ProfileDto profile) {
     LOGGER.debug("Create a profile");
-    Profile profileCreated = profileRepository.save(profile);
-    return profileCreated;
+    Profile profileCreated = profileRepository.save(beanMapper.map(profile));
+    return beanMapper.map(profileCreated);
   }
 
   @Override
