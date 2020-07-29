@@ -28,7 +28,7 @@ public interface ProfileService {
    * @param profileId profile Id
    * @return profile if exists, empty optional otherwise
    */
-  Optional<Profile> findProfileById(Long profileId);
+  Optional<ProfileDto> findProfileById(Long profileId);
 
   /**
    * Delete profile by it's Id

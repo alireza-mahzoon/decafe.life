@@ -43,9 +43,11 @@ public class DefaultProfileService implements ProfileService {
   }
 
   @Override
-  public Optional<Profile> findProfileById(Long profileId) {
+  public Optional<ProfileDto> findProfileById(Long profileId) {
     LOGGER.debug("Find profile by Id={}", profileId);
-    return profileRepository.findById(profileId);
+    Optional<Profile> profile = profileRepository.findById(profileId);
+    Optional<ProfileDto> profileDto = Optional.of(beanMapper.map(profile.get()));
+    return profileDto;
   }
 
   @Override
