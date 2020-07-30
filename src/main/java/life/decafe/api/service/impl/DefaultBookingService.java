@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.Booking;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.BookingDto;
 import life.decafe.api.repository.BookingRepository;
 import life.decafe.api.service.BookingService;
 import org.slf4j.Logger;
@@ -15,9 +17,11 @@ import java.util.Optional;
 public class DefaultBookingService implements BookingService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultBookingService.class);
   private final BookingRepository bookingRepository;
+  private final BeanMapper beanMapper;
 
-  public DefaultBookingService(BookingRepository bookingRepository) {
+  public DefaultBookingService(BookingRepository bookingRepository, BeanMapper beanMapper) {
     this.bookingRepository = bookingRepository;
+    this.beanMapper = beanMapper;
   }
 
 
@@ -28,9 +32,9 @@ public class DefaultBookingService implements BookingService {
   }
 
   @Override
-  public Optional<Booking> findBookingById(Long bookingId) {
+  public Optional<BookingDto> findBookingById(Long bookingId) {
     LOGGER.debug("Find a booking by Id={}", bookingId);
-    return bookingRepository.findById(bookingId);
+    return bookingRepository.findById(bookingId).map(beanMapper::map);
   }
 
   @Override
