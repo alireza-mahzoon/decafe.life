@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -38,9 +39,10 @@ public class DefaultBookingService implements BookingService {
   }
 
   @Override
-  public List<Booking> findAllBooking() {
+  public List<BookingDto> findAllBooking() {
     LOGGER.debug("Find all bookings");
-    return bookingRepository.findAll();
+    List<Booking> bookings = bookingRepository.findAll();
+    return bookings.stream().map(beanMapper::map).collect(Collectors.toList());
   }
 
   @Override
