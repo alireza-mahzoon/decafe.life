@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.RoomType;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.RoomTypeDto;
 import life.decafe.api.repository.RoomTypeRepository;
 import life.decafe.api.service.RoomTypeService;
 import org.slf4j.Logger;
@@ -15,10 +17,12 @@ import java.util.Optional;
 public class DefaultRoomTypeService implements RoomTypeService {
   private final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomTypeService.class);
   private final RoomTypeRepository roomTypeRepository;
+  private final BeanMapper beanMapper;
 
   @Autowired
-  public DefaultRoomTypeService(RoomTypeRepository roomTypeRepository) {
+  public DefaultRoomTypeService(RoomTypeRepository roomTypeRepository, BeanMapper beanMapper) {
     this.roomTypeRepository = roomTypeRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
@@ -28,9 +32,9 @@ public class DefaultRoomTypeService implements RoomTypeService {
   }
 
   @Override
-  public Optional<RoomType> findRoomTypeById(Long roomTypeId) {
+  public Optional<RoomTypeDto> findRoomTypeById(Long roomTypeId) {
     LOGGER.debug("Find a room type by its id={}", roomTypeId);
-    return roomTypeRepository.findById(roomTypeId);
+    return roomTypeRepository.findById(roomTypeId).map(beanMapper::map);
   }
 
   @Override

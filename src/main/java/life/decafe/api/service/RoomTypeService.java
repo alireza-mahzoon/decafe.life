@@ -1,6 +1,7 @@
 package life.decafe.api.service;
 
 import life.decafe.api.model.entity.RoomType;
+import life.decafe.api.model.rest.RoomTypeDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface RoomTypeService {
    * @param roomTypeId
    * @return room type if exists, empty optional otherwise
    */
-  Optional<RoomType> findRoomTypeById(Long roomTypeId);
+  Optional<RoomTypeDto> findRoomTypeById(Long roomTypeId);
 
   /**
    * Find all room types for a hotel Id
