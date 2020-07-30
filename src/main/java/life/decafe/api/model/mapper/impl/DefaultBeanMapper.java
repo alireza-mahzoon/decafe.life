@@ -1,14 +1,8 @@
 package life.decafe.api.model.mapper.impl;
 
-import life.decafe.api.model.entity.Hotel;
-import life.decafe.api.model.entity.Profile;
-import life.decafe.api.model.entity.Room;
-import life.decafe.api.model.entity.RoomAmenity;
+import life.decafe.api.model.entity.*;
 import life.decafe.api.model.mapper.BeanMapper;
-import life.decafe.api.model.rest.HotelDto;
-import life.decafe.api.model.rest.ProfileDto;
-import life.decafe.api.model.rest.RoomAmenityDto;
-import life.decafe.api.model.rest.RoomDto;
+import life.decafe.api.model.rest.*;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -116,5 +110,31 @@ public class DefaultBeanMapper implements BeanMapper {
     roomAmenity.setUpdated(roomAmenityDto.getUpdated());
     roomAmenity.setRegistered(roomAmenityDto.getRegistered());
     return roomAmenity;
+  }
+
+  @Override
+  public BookingDto map(Booking booking) {
+    BookingDto bookingDto = new BookingDto();
+    bookingDto.setId(booking.getId());
+    bookingDto.setProfileId(booking.getProfileId());
+    bookingDto.setCheckInDate(booking.getCheckInDate());
+    bookingDto.setCheckOutDate(booking.getCheckOutDate());
+    bookingDto.setHotelId(booking.getHotelId());
+    bookingDto.setRoomId(booking.getRoomId());
+    bookingDto.setRegistered(booking.getRegistered());
+    bookingDto.setUpdated(booking.getUpdated());
+    return bookingDto;
+  }
+
+  @Override
+  public Booking map(BookingDto bookingDto) {
+    Booking booking = new Booking();
+    booking.setId(bookingDto.getId());
+    booking.setProfileId(bookingDto.getProfileId());
+    booking.setCheckInDate(bookingDto.getCheckInDate());
+    booking.setCheckOutDate(bookingDto.getCheckOutDate());
+    booking.setRegistered(bookingDto.getRegistered());
+    booking.setUpdated(bookingDto.getUpdated());
+    return booking;
   }
 }

@@ -1,13 +1,7 @@
 package life.decafe.api.model.mapper;
 
-import life.decafe.api.model.entity.Hotel;
-import life.decafe.api.model.entity.Profile;
-import life.decafe.api.model.entity.Room;
-import life.decafe.api.model.entity.RoomAmenity;
-import life.decafe.api.model.rest.HotelDto;
-import life.decafe.api.model.rest.ProfileDto;
-import life.decafe.api.model.rest.RoomAmenityDto;
-import life.decafe.api.model.rest.RoomDto;
+import life.decafe.api.model.entity.*;
+import life.decafe.api.model.rest.*;
 
 import java.util.Optional;
 
@@ -23,4 +17,7 @@ public interface BeanMapper {
 
   RoomAmenityDto map(RoomAmenity roomAmenity);
   RoomAmenity map(RoomAmenityDto roomAmenity);
+
+  BookingDto map(Booking booking);
+  Booking map(BookingDto booking);
 }
