@@ -43,9 +43,9 @@ public class RoomTypeController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/roomtype", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<RoomType>> getAllRoomTypes(@PathVariable Long hotelId) {
+  public ResponseEntity<List<RoomTypeDto>> getAllRoomTypes(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving all roomTypes");
-    List<RoomType> roomTypes = roomTypeService.findAllRoomTypes(hotelId);
+    List<RoomTypeDto> roomTypes = roomTypeService.findAllRoomTypes(hotelId);
     return ResponseEntity.ok(roomTypes);
   }
 
