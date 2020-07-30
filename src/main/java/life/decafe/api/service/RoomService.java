@@ -26,7 +26,7 @@ public interface RoomService {
    * @param hotelId
    * @return list of rooms
    */
-  List<Room> findAllRooms(Long hotelId);
+  List<RoomDto> findAllRooms(Long hotelId);
 
   /**
    * Find room by its Id

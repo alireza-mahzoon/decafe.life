@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,9 +39,14 @@ public class DefaultRoomService implements RoomService {
   }
 
   @Override
-  public List<Room> findAllRooms(Long hotelId) {
+  public List<RoomDto> findAllRooms(Long hotelId) {
     LOGGER.debug("Find all rooms for the hotel with Id={}", hotelId);
-    return roomRepository.findAllByHotelId(hotelId);
+    List<Room> rooms = roomRepository.findAllByHotelId(hotelId);
+    List<RoomDto> roomDtos = new ArrayList<>();
+    for (Room room: rooms) {
+      roomDtos.add(beanMapper.map(room));
+    }
+    return roomDtos;
   }
 
   @Override
