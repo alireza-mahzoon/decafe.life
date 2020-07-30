@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.Room;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.RoomDto;
 import life.decafe.api.repository.RoomRepository;
 import life.decafe.api.service.RoomService;
 import org.slf4j.Logger;
@@ -14,21 +16,25 @@ import java.util.Optional;
 public class DefaultRoomService implements RoomService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomService.class);
   private final RoomRepository roomRepository;
+  private final BeanMapper beanMapper;
 
-  public DefaultRoomService(RoomRepository roomRepository) {
+  public DefaultRoomService(RoomRepository roomRepository, BeanMapper beanMapper) {
     this.roomRepository = roomRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
-  public Room createRoom(Room room) {
+  public RoomDto createRoom(RoomDto room) {
     LOGGER.debug("Create a new room");
-    return roomRepository.save(room);
+    Room roomCreated = roomRepository.save(beanMapper.map(room));
+    return beanMapper.map(roomCreated);
   }
 
   @Override
-  public Room updateRoom(Room room) {
+  public RoomDto updateRoom(RoomDto room) {
     LOGGER.debug("Update a room");
-    return roomRepository.save(room);
+    Room roomUpdated = roomRepository.save(beanMapper.map(room));
+    return beanMapper.map(roomUpdated);
   }
 
   @Override
@@ -38,9 +44,9 @@ public class DefaultRoomService implements RoomService {
   }
 
   @Override
-  public Optional<Room> findRoomById(Long roomId) {
+  public Optional<RoomDto> findRoomById(Long roomId) {
     LOGGER.debug("Find room with id={}", roomId);
-    return roomRepository.findById(roomId);
+    return roomRepository.findById(roomId).map(beanMapper::map);
   }
 
   @Override
