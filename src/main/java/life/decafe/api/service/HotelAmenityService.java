@@ -13,7 +13,7 @@ public interface HotelAmenityService {
    * @param hotelAmenity
    * @return newly created hotel amenity
    */
-  HotelAmenity createHotelAmenity(HotelAmenity hotelAmenity);
+  HotelAmenityDto createHotelAmenity(HotelAmenityDto hotelAmenity);
 
   /**
    * Find hotel amenity by its Id

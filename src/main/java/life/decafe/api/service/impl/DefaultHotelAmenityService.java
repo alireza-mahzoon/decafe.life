@@ -25,10 +25,10 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   }
 
   @Override
-  public HotelAmenity createHotelAmenity(HotelAmenity hotelAmenity) {
+  public HotelAmenityDto createHotelAmenity(HotelAmenityDto hotelAmenity) {
     LOGGER.debug("Create a hotel amenity");
-    hotelAmenityRepository.save(hotelAmenity);
-    return hotelAmenityRepository.save(hotelAmenity);
+    HotelAmenity hotelAmenityCreated = hotelAmenityRepository.save(beanMapper.map(hotelAmenity));
+    return beanMapper.map(hotelAmenityCreated);
   }
 
   @Override
@@ -36,7 +36,7 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
     LOGGER.debug("Find a hotel amenity by Id={}", hotelAmenityId);
     return hotelAmenityRepository.findById(hotelAmenityId).map(beanMapper::map);
   }
-  
+
   @Override
   public HotelAmenityDto updateHotelAmenity(HotelAmenityDto hotelAmenity) {
     LOGGER.debug("Update hotel amenity");
