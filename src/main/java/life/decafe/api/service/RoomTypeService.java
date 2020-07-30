@@ -13,7 +13,7 @@ public interface RoomTypeService {
    * @param roomType
    * @return newly created roomType
    */
-  RoomType createRoomType(RoomType roomType);
+  RoomTypeDto createRoomType(RoomTypeDto roomType);
 
   /**
    * Find a room type by its Id

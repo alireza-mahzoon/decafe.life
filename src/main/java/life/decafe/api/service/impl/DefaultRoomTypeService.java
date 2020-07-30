@@ -27,9 +27,10 @@ public class DefaultRoomTypeService implements RoomTypeService {
   }
 
   @Override
-  public RoomType createRoomType(RoomType roomType) {
+  public RoomTypeDto createRoomType(RoomTypeDto roomType) {
     LOGGER.debug("Create a room type");
-    return roomTypeRepository.save(roomType);
+    RoomType roomTypeCreated = roomTypeRepository.save(beanMapper.map(roomType));
+    return beanMapper.map(roomTypeCreated);
   }
 
   @Override
