@@ -46,9 +46,10 @@ public class DefaultBookingService implements BookingService {
   }
 
   @Override
-  public Booking updateBooking(Booking booking) {
+  public BookingDto updateBooking(BookingDto booking) {
     LOGGER.debug("Update a booking");
-    return bookingRepository.save(booking);
+    Booking bookingUpdated = bookingRepository.save(beanMapper.map(booking));
+    return beanMapper.map(bookingUpdated);
   }
 
   @Override

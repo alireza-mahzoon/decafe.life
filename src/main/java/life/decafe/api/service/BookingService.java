@@ -34,7 +34,7 @@ public interface BookingService {
    * @param booking
    * @return updated booking
    */
-  Booking updateBooking(Booking booking);
+  BookingDto updateBooking(BookingDto booking);
 
   /**
    * Delete a booking
