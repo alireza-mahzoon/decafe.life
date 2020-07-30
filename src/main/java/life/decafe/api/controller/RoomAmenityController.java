@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.RoomAmenity;
+import life.decafe.api.model.rest.RoomAmenityDto;
 import life.decafe.api.repository.RoomAmenityRepository;
 import life.decafe.api.service.RoomAmenityService;
 import org.slf4j.Logger;
@@ -41,9 +42,9 @@ public class RoomAmenityController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomAmenity> createRoomAmenity(@RequestBody RoomAmenity amenity, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+  public ResponseEntity<RoomAmenityDto> createRoomAmenity(@RequestBody RoomAmenityDto amenity, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
     LOGGER.info("Creating a room amenity for hotel with hotelId={} and room type with Id={}", hotelId, roomTypeId );
-    RoomAmenity roomAmenity = roomAmenityService.createRoomAmenity(amenity);
+    RoomAmenityDto roomAmenity = roomAmenityService.createRoomAmenity(amenity);
     return ResponseEntity.ok(roomAmenity);
   }
 
