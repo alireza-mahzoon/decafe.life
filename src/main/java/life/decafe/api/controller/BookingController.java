@@ -43,9 +43,9 @@ public class BookingController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+  public ResponseEntity<BookingDto> createBooking(@RequestBody BookingDto booking) {
     LOGGER.info("Creating a booking");
-    Booking bookingCreated = bookingService.createBooking(booking);
+    BookingDto bookingCreated = bookingService.createBooking(booking);
     return ResponseEntity.ok(bookingCreated);
   }
 
