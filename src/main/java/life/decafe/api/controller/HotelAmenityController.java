@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.HotelAmenity;
+import life.decafe.api.model.rest.HotelAmenityDto;
 import life.decafe.api.repository.HotelAmenityRepository;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
@@ -31,9 +32,9 @@ public class HotelAmenityController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/amenity/{amenityId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> getHotelAmenity(@PathVariable Long hotelId, @PathVariable Long amenityId) {
+  public ResponseEntity<HotelAmenityDto> getHotelAmenity(@PathVariable Long hotelId, @PathVariable Long amenityId) {
     LOGGER.info("Find a hotel amenity with Id={}", amenityId);
-    Optional<HotelAmenity> hotelAmenity = hotelAmenityService.findHotelAmenityById(amenityId);
+    Optional<HotelAmenityDto> hotelAmenity = hotelAmenityService.findHotelAmenityById(amenityId);
     if (hotelAmenity.isPresent()) {
       return ResponseEntity.ok(hotelAmenity.get());
     }
