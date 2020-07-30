@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Booking;
+import life.decafe.api.model.rest.BookingDto;
 import life.decafe.api.repository.BookingRepository;
 import life.decafe.api.service.BookingService;
 import org.slf4j.Logger;
@@ -32,9 +33,9 @@ public class BookingController {
   }
 
   @GetMapping(value = "/{bookingId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Booking> getBookingById(@PathVariable Long bookingId) {
+  public ResponseEntity<BookingDto> getBookingById(@PathVariable Long bookingId) {
     LOGGER.info("Retrieving booking by Id={}", bookingId);
-    Optional<Booking> booking = bookingService.findBookingById(bookingId);
+    Optional<BookingDto> booking = bookingService.findBookingById(bookingId);
     if(booking.isPresent()) {
       return ResponseEntity.ok(booking.get());
     }
