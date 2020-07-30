@@ -110,6 +110,7 @@ public class DefaultBeanMapper implements BeanMapper {
     RoomAmenity roomAmenity = new RoomAmenity();
     roomAmenity.setId(roomAmenityDto.getId());
     roomAmenity.setName(roomAmenityDto.getName());
+    roomAmenity.setRoomTypeId(roomAmenityDto.getRoomTypeId());
     roomAmenity.setDescription(roomAmenityDto.getDescription());
     roomAmenity.setPricing(roomAmenityDto.getPricing());
     roomAmenity.setUpdated(roomAmenityDto.getUpdated());
