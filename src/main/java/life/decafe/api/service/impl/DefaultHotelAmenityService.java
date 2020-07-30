@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.HotelAmenity;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.HotelAmenityDto;
 import life.decafe.api.repository.HotelAmenityRepository;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
@@ -14,9 +16,11 @@ import java.util.Optional;
 public class DefaultHotelAmenityService implements HotelAmenityService {
   private final Logger LOGGER = LoggerFactory.getLogger(DefaultHotelAmenityService.class);
   private final HotelAmenityRepository hotelAmenityRepository;
+  private final BeanMapper beanMapper;
 
-  public DefaultHotelAmenityService(HotelAmenityRepository hotelAmenityRepository) {
+  public DefaultHotelAmenityService(HotelAmenityRepository hotelAmenityRepository, BeanMapper beanMapper) {
     this.hotelAmenityRepository = hotelAmenityRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
@@ -27,9 +31,9 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   }
 
   @Override
-  public Optional<HotelAmenity> findHotelAmenityById(Long hotelAmenityId) {
+  public Optional<HotelAmenityDto> findHotelAmenityById(Long hotelAmenityId) {
     LOGGER.debug("Find a hotel amenity by Id={}", hotelAmenityId);
-    return hotelAmenityRepository.findById(hotelAmenityId);
+    return hotelAmenityRepository.findById(hotelAmenityId).map(beanMapper::map);
   }
 
   @Override

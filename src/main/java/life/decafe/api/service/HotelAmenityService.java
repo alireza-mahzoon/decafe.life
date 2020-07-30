@@ -1,6 +1,7 @@
 package life.decafe.api.service;
 
 import life.decafe.api.model.entity.HotelAmenity;
+import life.decafe.api.model.rest.HotelAmenityDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +20,7 @@ public interface HotelAmenityService {
    * @param hotelAmenityId hotel amenity Id
    * @return Hotel amenity if exists, empty otherwise
    */
-  Optional<HotelAmenity> findHotelAmenityById(Long hotelAmenityId);
+  Optional<HotelAmenityDto> findHotelAmenityById(Long hotelAmenityId);
 
   /**
    * Update a hotel amenity
