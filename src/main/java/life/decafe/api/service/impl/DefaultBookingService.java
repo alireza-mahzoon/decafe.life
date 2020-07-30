@@ -25,11 +25,11 @@ public class DefaultBookingService implements BookingService {
     this.beanMapper = beanMapper;
   }
 
-
   @Override
-  public Booking createBooking(Booking booking) {
+  public BookingDto createBooking(BookingDto booking) {
     LOGGER.debug("Create a booking");
-    return bookingRepository.save(booking);
+    Booking createdBooking = bookingRepository.save(beanMapper.map(booking));
+    return beanMapper.map(createdBooking);
   }
 
   @Override

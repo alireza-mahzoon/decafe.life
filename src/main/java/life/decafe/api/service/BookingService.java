@@ -13,7 +13,7 @@ public interface BookingService {
    * @param booking
    * @return newly created booking
    */
-  Booking createBooking(Booking booking);
+  BookingDto createBooking(BookingDto booking);
 
   /**
    * Find a booking by its Id
