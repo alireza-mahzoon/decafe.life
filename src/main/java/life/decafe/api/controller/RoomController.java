@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.Room;
+import life.decafe.api.model.rest.RoomDto;
 import life.decafe.api.service.RoomService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +31,9 @@ public class RoomController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Room> findRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
+  public ResponseEntity<RoomDto> findRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Retrieving room by Id ={}", roomId);
-    Optional<Room> room = roomService.findRoomById(roomId);
+    Optional<RoomDto> room = roomService.findRoomById(roomId);
     if (room.isPresent()) {
       return ResponseEntity.ok(room.get());
     }
@@ -40,16 +41,16 @@ public class RoomController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Room> createRoom(@RequestBody Room room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
+  public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
     LOGGER.info("Creating a room with roomTypeId={} and hotelId={}", roomtypeId, hotelId);
-    Room roomCreated = roomService.createRoom(room);
+    RoomDto roomCreated = roomService.createRoom(room);
     return ResponseEntity.ok(roomCreated);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Room> updateRoom(@RequestBody Room room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
+  public ResponseEntity<RoomDto> updateRoom(@RequestBody RoomDto room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Updating a room with Id ={}", roomId);
-    Room roomUpdated = roomService.updateRoom(room);
+    RoomDto roomUpdated = roomService.updateRoom(room);
     return ResponseEntity.ok(roomUpdated);
   }
 
