@@ -27,7 +27,7 @@ public interface RoomAmenityService {
    * @param roomtypeId
    * @return List of room amenities
    */
-   List<RoomAmenity> findAllRoomAmenities(Long roomtypeId);
+   List<RoomAmenityDto> findAllRoomAmenities(Long roomtypeId);
 
   /**
    * Update a room amenity

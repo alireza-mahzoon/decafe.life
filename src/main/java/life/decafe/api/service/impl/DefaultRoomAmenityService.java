@@ -9,8 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultRoomAmenityService implements RoomAmenityService {
@@ -38,9 +40,10 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   }
 
   @Override
-  public List<RoomAmenity> findAllRoomAmenities(Long roomtypeId) {
+  public List<RoomAmenityDto> findAllRoomAmenities(Long roomtypeId) {
     LOGGER.debug("Find all room amenities in a room type with Id={}", roomtypeId);
-    return roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
+    List<RoomAmenity> roomAmenities = roomAmenityRepository.findAllByRoomTypeId(roomtypeId);
+    return roomAmenities.stream().map(beanMapper::map).collect(Collectors.toList());
   }
 
   @Override
