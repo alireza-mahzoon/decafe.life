@@ -32,9 +32,9 @@ public class RoomAmenityController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/amenity/{amenityId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomAmenity> getRoomAmenity(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long amenityId) {
+  public ResponseEntity<RoomAmenityDto> getRoomAmenity(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long amenityId) {
     LOGGER.info("Retrieving a room amenity Id = {}", amenityId);
-    Optional<RoomAmenity> roomAmenity = roomAmenityService.findRoomAmenityById(amenityId);
+    Optional<RoomAmenityDto> roomAmenity = roomAmenityService.findRoomAmenityById(amenityId);
     if (roomAmenity.isPresent()) {
       return ResponseEntity.ok(roomAmenity.get());
     }
