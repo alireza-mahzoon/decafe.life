@@ -3,9 +3,11 @@ package life.decafe.api.model.mapper.impl;
 import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.entity.Profile;
 import life.decafe.api.model.entity.Room;
+import life.decafe.api.model.entity.RoomAmenity;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.HotelDto;
 import life.decafe.api.model.rest.ProfileDto;
+import life.decafe.api.model.rest.RoomAmenityDto;
 import life.decafe.api.model.rest.RoomDto;
 import org.springframework.stereotype.Component;
 
@@ -74,7 +76,7 @@ public class DefaultBeanMapper implements BeanMapper {
     profileDto.setEmail(profile.getEmail());
     profileDto.setRegistered(profile.getRegistered());
     profileDto.setUpdated(profile.getUpdated());
-    return null;
+    return profileDto;
   }
 
   @Override
@@ -87,6 +89,31 @@ public class DefaultBeanMapper implements BeanMapper {
     profile.setEmail(profileDto.getEmail());
     profile.setRegistered(profileDto.getRegistered());
     profile.setUpdated(profileDto.getUpdated());
-    return null;
+    return profile;
+  }
+
+  @Override
+  public RoomAmenityDto map(RoomAmenity roomAmenity) {
+    RoomAmenityDto roomAmenityDto = new RoomAmenityDto();
+    roomAmenityDto.setId(roomAmenity.getId());
+    roomAmenityDto.setRoomTypeId(roomAmenity.getRoomTypeId());
+    roomAmenityDto.setName(roomAmenity.getName());
+    roomAmenityDto.setDescription(roomAmenity.getDescription());
+    roomAmenityDto.setPricing(roomAmenity.getPricing());
+    roomAmenityDto.setUpdated(roomAmenity.getUpdated());
+    roomAmenityDto.setRegistered(roomAmenity.getRegistered());
+    return roomAmenityDto;
+  }
+
+  @Override
+  public RoomAmenity map(RoomAmenityDto roomAmenityDto) {
+    RoomAmenity roomAmenity = new RoomAmenity();
+    roomAmenity.setId(roomAmenityDto.getId());
+    roomAmenity.setName(roomAmenityDto.getName());
+    roomAmenity.setDescription(roomAmenityDto.getDescription());
+    roomAmenity.setPricing(roomAmenityDto.getPricing());
+    roomAmenity.setUpdated(roomAmenityDto.getUpdated());
+    roomAmenity.setRegistered(roomAmenityDto.getRegistered());
+    return roomAmenity;
   }
 }
