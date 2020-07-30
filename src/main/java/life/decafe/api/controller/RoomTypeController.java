@@ -1,6 +1,7 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.entity.RoomType;
+import life.decafe.api.model.rest.RoomTypeDto;
 import life.decafe.api.repository.RoomTypeRepository;
 import life.decafe.api.service.RoomTypeService;
 import org.slf4j.Logger;
@@ -32,9 +33,9 @@ public class RoomTypeController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomType> findRoomTypeById(@PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+  public ResponseEntity<RoomTypeDto> findRoomTypeById(@PathVariable Long hotelId, @PathVariable Long roomTypeId) {
     LOGGER.info("Retrieving room type with Id={}", roomTypeId);
-    Optional<RoomType> roomType = roomTypeService.findRoomTypeById(roomTypeId);
+    Optional<RoomTypeDto> roomType = roomTypeService.findRoomTypeById(roomTypeId);
     if (roomType.isPresent()) {
       return ResponseEntity.ok(roomType.get());
     }
