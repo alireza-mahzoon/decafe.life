@@ -23,4 +23,7 @@ public interface BeanMapper {
 
   RoomTypeDto map(RoomType roomType);
   RoomType map(RoomTypeDto roomType);
+
+  HotelAmenityDto map(HotelAmenity hotelAmenity);
+  HotelAmenity map(HotelAmenityDto hotelAmenity);
 }
