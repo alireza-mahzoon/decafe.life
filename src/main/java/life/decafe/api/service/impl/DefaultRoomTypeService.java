@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultRoomTypeService implements RoomTypeService {
@@ -38,9 +39,10 @@ public class DefaultRoomTypeService implements RoomTypeService {
   }
 
   @Override
-  public List<RoomType> findAllRoomTypes(Long hotelId) {
+  public List<RoomTypeDto> findAllRoomTypes(Long hotelId) {
     LOGGER.debug("Find all room types for hotel with Id={}", hotelId);
-    return  roomTypeRepository.findAllByHotelId(hotelId);
+    List<RoomType> roomTypeList = roomTypeRepository.findAllByHotelId(hotelId);
+    return roomTypeList.stream().map(beanMapper::map).collect(Collectors.toList());
   }
 
   @Override
