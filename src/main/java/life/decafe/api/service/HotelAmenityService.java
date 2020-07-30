@@ -27,7 +27,7 @@ public interface HotelAmenityService {
    * @param hotelAmenity
    * @return Updated hotel amenity
    */
-  HotelAmenity updateHotelAmenity(HotelAmenity hotelAmenity);
+  HotelAmenityDto updateHotelAmenity(HotelAmenityDto hotelAmenity);
 
   /**
    * Find all hotel amenities for with hotelAmenity Id
