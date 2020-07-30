@@ -49,9 +49,9 @@ public class HotelAmenityController {
   }
 
   @PutMapping(value = "/hotel/{hotelId}/amenity/{amenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> updateHotelAmenity(@RequestBody HotelAmenity hotelAmenity, @PathVariable Long hotelId, @PathVariable Long amenityId) {
+  public ResponseEntity<HotelAmenityDto> updateHotelAmenity(@RequestBody HotelAmenityDto hotelAmenity, @PathVariable Long hotelId, @PathVariable Long amenityId) {
     LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", amenityId, hotelId);
-    HotelAmenity updatedHotelAmenity = hotelAmenityService.updateHotelAmenity(hotelAmenity);
+    HotelAmenityDto updatedHotelAmenity = hotelAmenityService.updateHotelAmenity(hotelAmenity);
     return ResponseEntity.ok(updatedHotelAmenity);
   }
 
