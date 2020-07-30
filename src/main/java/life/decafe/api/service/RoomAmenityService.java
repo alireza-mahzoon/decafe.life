@@ -34,7 +34,7 @@ public interface RoomAmenityService {
    * @param roomAmenity
    * @return Updated room amenity
    */
-   RoomAmenity updateRoomAmenity(RoomAmenity roomAmenity);
+   RoomAmenityDto updateRoomAmenity(RoomAmenityDto roomAmenity);
 
   /**
    * Delete a room amenity

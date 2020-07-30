@@ -47,9 +47,10 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   }
 
   @Override
-  public RoomAmenity updateRoomAmenity(RoomAmenity roomAmenity) {
+  public RoomAmenityDto updateRoomAmenity(RoomAmenityDto roomAmenity) {
     LOGGER.debug("Update a room amenity");
-    return roomAmenityRepository.save(roomAmenity);
+    RoomAmenity roomAmenityUpdated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
+    return beanMapper.map(roomAmenityUpdated);
   }
 
   @Override
