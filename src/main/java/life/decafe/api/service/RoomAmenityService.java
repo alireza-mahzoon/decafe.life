@@ -1,6 +1,7 @@
 package life.decafe.api.service;
 
 import life.decafe.api.model.entity.RoomAmenity;
+import life.decafe.api.model.rest.RoomAmenityDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ public interface RoomAmenityService {
    * @param roomAmenity
    * @return newly created room amenity
    */
-   RoomAmenity createRoomAmenity(RoomAmenity roomAmenity);
+   RoomAmenityDto createRoomAmenity(RoomAmenityDto roomAmenity);
 
   /**
    * Find room amenity by its Id

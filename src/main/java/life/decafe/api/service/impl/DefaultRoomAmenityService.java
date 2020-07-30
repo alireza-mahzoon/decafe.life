@@ -1,6 +1,8 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.model.entity.RoomAmenity;
+import life.decafe.api.model.mapper.BeanMapper;
+import life.decafe.api.model.rest.RoomAmenityDto;
 import life.decafe.api.repository.RoomAmenityRepository;
 import life.decafe.api.service.RoomAmenityService;
 import org.slf4j.Logger;
@@ -15,15 +17,18 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
 
   private final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomAmenityService.class);
   private final RoomAmenityRepository roomAmenityRepository;
+  private final BeanMapper beanMapper;
 
-  public DefaultRoomAmenityService(RoomAmenityRepository roomAmenityRepository) {
+  public DefaultRoomAmenityService(RoomAmenityRepository roomAmenityRepository, BeanMapper beanMapper) {
     this.roomAmenityRepository = roomAmenityRepository;
+    this.beanMapper = beanMapper;
   }
 
   @Override
-  public RoomAmenity createRoomAmenity(RoomAmenity roomAmenity) {
+  public RoomAmenityDto createRoomAmenity(RoomAmenityDto roomAmenity) {
     LOGGER.debug("Create a room amenity");
-    return roomAmenityRepository.save(roomAmenity);
+    RoomAmenity roomAmenityCreated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
+    return beanMapper.map(roomAmenityCreated);
   }
 
   @Override
