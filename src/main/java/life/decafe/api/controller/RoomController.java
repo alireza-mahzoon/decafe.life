@@ -24,9 +24,9 @@ public class RoomController {
   }
 
   @GetMapping(value = "/hotel/{hotelId}/room", produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<List<Room>> getAllRooms(@PathVariable Long hotelId) {
+  public ResponseEntity<List<RoomDto>> getAllRooms(@PathVariable Long hotelId) {
     LOGGER.info("Retrieving all rooms");
-    List<Room> rooms = roomService.findAllRooms(hotelId);
+    List<RoomDto> rooms = roomService.findAllRooms(hotelId);
     return ResponseEntity.ok(rooms);
   }
 
@@ -62,7 +62,7 @@ public class RoomController {
   }
 
   @DeleteMapping(value = "hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}")
-  public ResponseEntity<Void> delteRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
+  public ResponseEntity<Void> deleteRoomById(@PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Deleting room by id={}", roomId);
     roomService.deleteRoom(roomId);
     return ResponseEntity.noContent().build();
