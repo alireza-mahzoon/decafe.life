@@ -50,9 +50,9 @@ public class RoomTypeController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomType> createRoomType(@RequestBody RoomType roomtype, @PathVariable Long hotelId) {
+  public ResponseEntity<RoomTypeDto> createRoomType(@RequestBody RoomTypeDto roomtype, @PathVariable Long hotelId) {
     LOGGER.info("Create a roomType for a hotel with id={}", hotelId);
-    RoomType createdRoomType = roomTypeService.createRoomType(roomtype);
+    RoomTypeDto createdRoomType = roomTypeService.createRoomType(roomtype);
     return ResponseEntity.ok(createdRoomType);
   }
 
