@@ -34,7 +34,7 @@ public interface HotelAmenityService {
    * @param hotelId
    * @return List of hotel amenities
    */
-  List<HotelAmenity> findAllHotelAmenities(Long hotelId);
+  List<HotelAmenityDto> findAllHotelAmenities(Long hotelId);
 
   /**
    * Delete a hotel amenity

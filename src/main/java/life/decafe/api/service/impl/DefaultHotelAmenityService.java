@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultHotelAmenityService implements HotelAmenityService {
@@ -43,9 +44,10 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   }
 
   @Override
-  public List<HotelAmenity> findAllHotelAmenities(Long hotelId) {
+  public List<HotelAmenityDto> findAllHotelAmenities(Long hotelId) {
     LOGGER.debug("find all hotel amenities with hotel Id={}", hotelId);
-    return hotelAmenityRepository.findAllByHotelId(hotelId);
+    List<HotelAmenity> hotelAmenities = hotelAmenityRepository.findAll();
+    return hotelAmenities.stream().map(beanMapper::map).collect(Collectors.toList());
   }
 
   @Override
