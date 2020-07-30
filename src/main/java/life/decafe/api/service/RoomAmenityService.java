@@ -20,7 +20,7 @@ public interface RoomAmenityService {
    * @param roomAmenityId
    * @return room amenity if exists, empty optional otherwise
    */
-   Optional<RoomAmenity> findRoomAmenityById(Long roomAmenityId);
+   Optional<RoomAmenityDto> findRoomAmenityById(Long roomAmenityId);
 
   /**
    * Find all room amenities in a room type

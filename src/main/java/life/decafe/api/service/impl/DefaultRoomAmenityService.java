@@ -32,9 +32,9 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   }
 
   @Override
-  public Optional<RoomAmenity> findRoomAmenityById(Long roomAmenityId) {
+  public Optional<RoomAmenityDto> findRoomAmenityById(Long roomAmenityId) {
     LOGGER.debug("Find room amenity by Id={}", roomAmenityId);
-    return roomAmenityRepository.findById(roomAmenityId);
+    return roomAmenityRepository.findById(roomAmenityId).map(beanMapper::map);
   }
 
   @Override
