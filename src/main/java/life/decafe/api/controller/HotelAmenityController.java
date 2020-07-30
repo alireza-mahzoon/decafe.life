@@ -42,9 +42,9 @@ public class HotelAmenityController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenity> createHotelAmenity(@RequestBody HotelAmenity amenity, @PathVariable Long hotelId) {
+  public ResponseEntity<HotelAmenityDto> createHotelAmenity(@RequestBody HotelAmenityDto amenity, @PathVariable Long hotelId) {
     LOGGER.info("Create a hotel amenity");
-    HotelAmenity CreatedHotelAmenity = hotelAmenityService.createHotelAmenity(amenity);
+    HotelAmenityDto CreatedHotelAmenity = hotelAmenityService.createHotelAmenity(amenity);
     return ResponseEntity.ok(CreatedHotelAmenity);
   }
 
