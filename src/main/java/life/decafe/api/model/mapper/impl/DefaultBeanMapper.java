@@ -137,4 +137,29 @@ public class DefaultBeanMapper implements BeanMapper {
     booking.setUpdated(bookingDto.getUpdated());
     return booking;
   }
+
+  @Override
+  public RoomTypeDto map(RoomType roomType) {
+    RoomTypeDto roomTypeDto = new RoomTypeDto();
+    roomTypeDto.setId(roomType.getId());
+    roomTypeDto.setHotelId(roomType.getHotelId());
+    roomTypeDto.setName(roomType.getDescription());
+    roomTypeDto.setDescription(roomType.getDescription());
+    roomTypeDto.setCapacity(roomType.getCapacity());
+    roomTypeDto.setRegistered(roomType.getRegistered());
+    roomTypeDto.setUpdated(roomType.getUpdated());
+    return roomTypeDto;
+  }
+
+  @Override
+  public RoomType map(RoomTypeDto roomTypeDto) {
+    RoomType roomType = new RoomType();
+    roomType.setId(roomTypeDto.getId());
+    roomType.setHotelId(roomTypeDto.getHotelId());
+    roomType.setName(roomTypeDto.getName());
+    roomType.setCapacity(roomTypeDto.getCapacity());
+    roomType.setRegistered(roomTypeDto.getRegistered());
+    roomType.setUpdated(roomTypeDto.getUpdated());
+    return roomType;
+  }
 }

@@ -20,4 +20,7 @@ public interface BeanMapper {
 
   BookingDto map(Booking booking);
   Booking map(BookingDto booking);
+
+  RoomTypeDto map(RoomType roomType);
+  RoomType map(RoomTypeDto roomType);
 }
