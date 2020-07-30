@@ -34,7 +34,7 @@ public interface RoomTypeService {
    * @param roomType
    * @return Updated room type
    */
-  RoomType updateRoomType(RoomType roomType);
+  RoomTypeDto updateRoomType(RoomTypeDto roomType);
 
   /**
    * Delete a room type
