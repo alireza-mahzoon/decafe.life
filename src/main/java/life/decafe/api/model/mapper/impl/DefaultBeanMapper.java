@@ -157,6 +157,7 @@ public class DefaultBeanMapper implements BeanMapper {
     roomType.setId(roomTypeDto.getId());
     roomType.setHotelId(roomTypeDto.getHotelId());
     roomType.setName(roomTypeDto.getName());
+    roomType.setDescription(roomTypeDto.getDescription());
     roomType.setCapacity(roomTypeDto.getCapacity());
     roomType.setRegistered(roomTypeDto.getRegistered());
     roomType.setUpdated(roomTypeDto.getUpdated());
