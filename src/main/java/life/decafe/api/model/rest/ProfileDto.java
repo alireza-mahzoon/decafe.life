@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ProfileDto {
   @EqualsAndHashCode.Include
-  @Schema(description = "Unique id of this profile", example = "123456")
+  @Schema(description = "Unique id of this profile", example = "123456", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
   @Schema(description = "First name of this profile", example = "Peter")
   @NotBlank(message = "FirstName cannot be blank")
@@ -21,7 +21,6 @@ public class ProfileDto {
   @NotBlank(message ="LastName can not be blank")
   private String lastName;
   @Schema(description = "Birthday of this profile", example = "2000-03-03")
-  @NotBlank(message = "Birthday cannot be blank")
   private LocalDate birthday;
   @Schema(description = "Email of this profile", example = "peter@gmail.com")
   @NotBlank(message = "Email cannot be blank")
