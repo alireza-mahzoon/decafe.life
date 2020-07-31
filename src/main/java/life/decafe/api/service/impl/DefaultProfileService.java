@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.Profile;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.ProfileDto;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultProfileService implements ProfileService {
@@ -27,6 +29,12 @@ public class DefaultProfileService implements ProfileService {
   @Override
   public ProfileDto createProfile(ProfileDto profile) {
     LOGGER.debug("Create a profile");
+    profile.setEmail(profile.getEmail().toLowerCase());
+    String profileEmail = profile.getEmail();
+    Optional<Profile> existedProfile = profileRepository.findByEmail(profileEmail);
+    if (existedProfile.isPresent()) {
+      throw new ResourceConflictException("The email already exists");
+    }
     Profile profileCreated = profileRepository.save(beanMapper.map(profile));
     return beanMapper.map(profileCreated);
   }
@@ -35,19 +43,13 @@ public class DefaultProfileService implements ProfileService {
   public List<ProfileDto> findAllProfiles() {
     LOGGER.debug("Find all profiles");
     List<Profile> profiles = profileRepository.findAll();
-    List<ProfileDto> profileDtos = new ArrayList<>();
-    for (Profile profile: profiles) {
-      profileDtos.add(beanMapper.map(profile));
-    }
-    return profileDtos;
+    return profiles.stream().map(beanMapper::map).collect(Collectors.toList());
   }
 
   @Override
   public Optional<ProfileDto> findProfileById(Long profileId) {
     LOGGER.debug("Find profile by Id={}", profileId);
-    Optional<Profile> profile = profileRepository.findById(profileId);
-    Optional<ProfileDto> profileDto = Optional.of(beanMapper.map(profile.get()));
-    return profileDto;
+    return profileRepository.findById(profileId).map(beanMapper::map);
   }
 
   @Override
