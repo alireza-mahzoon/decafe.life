@@ -20,7 +20,7 @@ public class RoomAmenityController {
   private final RoomAmenityService roomAmenityService;
 
   @Autowired
-  public RoomAmenityController(RoomAmenityRepository roomAmenityRepository, RoomAmenityService roomAmenityService) {
+  public RoomAmenityController(RoomAmenityService roomAmenityService) {
     this.roomAmenityService = roomAmenityService;
   }
 
