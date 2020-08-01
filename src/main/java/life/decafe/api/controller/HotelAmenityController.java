@@ -1,8 +1,6 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.HotelAmenity;
 import life.decafe.api.model.rest.HotelAmenityDto;
-import life.decafe.api.repository.HotelAmenityRepository;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +18,7 @@ public class HotelAmenityController {
   private final HotelAmenityService hotelAmenityService;
 
   @Autowired
-  public HotelAmenityController(HotelAmenityRepository hotelAmenityRepository, HotelAmenityService hotelAmenityService) {
+  public HotelAmenityController(HotelAmenityService hotelAmenityService) {
     this.hotelAmenityService = hotelAmenityService;
   }
 
