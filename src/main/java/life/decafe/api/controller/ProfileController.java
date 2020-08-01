@@ -1,7 +1,5 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.Hotel;
-import life.decafe.api.model.entity.Profile;
 import life.decafe.api.model.rest.ProfileDto;
 import life.decafe.api.repository.ProfileRepository;
 import life.decafe.api.service.ProfileService;
@@ -10,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class ProfileController {
   private final ProfileService profileService;
 
   @Autowired
-  public ProfileController(ProfileRepository profileRepository, ProfileService profileService) {
+  public ProfileController(ProfileService profileService) {
     this.profileService = profileService;
   }
 
@@ -44,7 +43,7 @@ public class ProfileController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ProfileDto> createProfile(@RequestBody ProfileDto profile) {
+  public ResponseEntity<ProfileDto> createProfile(@Validated @RequestBody ProfileDto profile) {
     LOGGER.info("Creating a profile");
     ProfileDto userProfile = profileService.createProfile(profile);
     return ResponseEntity.ok(userProfile);
