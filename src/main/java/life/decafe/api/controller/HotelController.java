@@ -22,7 +22,7 @@ public class HotelController {
   private final HotelService hotelService;
 
   @Autowired
-  public HotelController(HotelRepository hotelRepository, HotelService hotelService) {
+  public HotelController(HotelService hotelService) {
     this.hotelService = hotelService;
   }
 
