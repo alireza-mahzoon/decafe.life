@@ -21,7 +21,7 @@ public class RoomTypeController {
   private final RoomTypeService roomTypeService;
 
   @Autowired
-  public RoomTypeController(RoomTypeRepository roomTypeRepository, RoomTypeService roomTypeService) {
+  public RoomTypeController(RoomTypeService roomTypeService) {
     this.roomTypeService = roomTypeService;
   }
 
