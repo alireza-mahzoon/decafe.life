@@ -1,8 +1,6 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.rest.HotelDto;
-import life.decafe.api.repository.HotelRepository;
 import life.decafe.api.service.HotelService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
