@@ -1,6 +1,5 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.Booking;
 import life.decafe.api.model.rest.BookingDto;
 import life.decafe.api.repository.BookingRepository;
 import life.decafe.api.service.BookingService;
@@ -21,7 +20,7 @@ public class BookingController {
   private final BookingService bookingService;
 
   @Autowired
-  public BookingController(BookingRepository bookingRepository, BookingService bookingService) {
+  public BookingController(BookingService bookingService) {
     this.bookingService = bookingService;
   }
 
