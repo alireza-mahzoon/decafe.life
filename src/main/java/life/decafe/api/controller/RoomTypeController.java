@@ -1,8 +1,6 @@
 package life.decafe.api.controller;
 
-import life.decafe.api.model.entity.RoomType;
 import life.decafe.api.model.rest.RoomTypeDto;
-import life.decafe.api.repository.RoomTypeRepository;
 import life.decafe.api.service.RoomTypeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
