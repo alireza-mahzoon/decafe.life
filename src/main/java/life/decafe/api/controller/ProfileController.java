@@ -1,7 +1,6 @@
 package life.decafe.api.controller;
 
 import life.decafe.api.model.rest.ProfileDto;
-import life.decafe.api.repository.ProfileRepository;
 import life.decafe.api.service.ProfileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
