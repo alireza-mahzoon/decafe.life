@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.*;
+
 @Service
 public class DefaultRoomService implements RoomService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomService.class);
@@ -65,7 +67,12 @@ public class DefaultRoomService implements RoomService {
   @Override
   public Void deleteRoom(Long roomId) {
     LOGGER.debug("Delete a room by id={}", roomId);
-    roomRepository.deleteById(roomId);
+    Optional<Room> roomToBeDeleted = roomRepository.findById(roomId);
+    if (roomToBeDeleted.isPresent()) {
+      roomRepository.deleteById(roomId);
+    } else {
+      throw new ResourceConflictException("This room does not exist");
+    }
     return null;
   }
 
