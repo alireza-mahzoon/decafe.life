@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.Room;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.RoomDto;
@@ -27,6 +28,12 @@ public class DefaultRoomService implements RoomService {
   @Override
   public RoomDto createRoom(RoomDto room) {
     LOGGER.debug("Create a new room");
+    Long roomHotelId = room.getHotelId();
+    Integer roomNumber = room.getNumber();
+    Optional<Room> existedRoom = roomRepository.findRoomByHotelIdAndNumber(roomHotelId, roomNumber);
+    if (existedRoom.isPresent()) {
+      throw new ResourceConflictException("This room already exists");
+    }
     Room roomCreated = roomRepository.save(beanMapper.map(room));
     return beanMapper.map(roomCreated);
   }
