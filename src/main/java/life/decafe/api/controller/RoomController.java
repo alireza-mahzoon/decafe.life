@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.RoomDto;
 import life.decafe.api.service.RoomService;
 import org.slf4j.Logger;
@@ -42,6 +43,9 @@ public class RoomController {
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
     LOGGER.info("Creating a room with roomTypeId={} and hotelId={}", roomtypeId, hotelId);
+    if (!room.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotelId in the end point is not equal to method argument");
+    }
     RoomDto roomCreated = roomService.createRoom(room);
     return ResponseEntity.ok(roomCreated);
   }
