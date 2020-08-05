@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class RoomController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomDto> createRoom(@RequestBody RoomDto room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
+  public ResponseEntity<RoomDto> createRoom(@RequestBody @Validated RoomDto room, @PathVariable Long roomtypeId, @PathVariable Long hotelId) {
     LOGGER.info("Creating a room with roomTypeId={} and hotelId={}", roomtypeId, hotelId);
     if (!room.getHotelId().equals(hotelId)) {
       throw new BadRequestException("The hotelId in the end point is not equal to method argument");
@@ -51,7 +52,7 @@ public class RoomController {
   }
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomDto> updateRoom(@RequestBody RoomDto room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
+  public ResponseEntity<RoomDto> updateRoom(@RequestBody @Validated RoomDto room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Updating a room with Id ={}", roomId);
     RoomDto roomUpdated = roomService.updateRoom(room);
     return ResponseEntity.ok(roomUpdated);
