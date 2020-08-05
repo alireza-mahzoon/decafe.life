@@ -17,15 +17,14 @@ public class RoomDto {
   @NotNull
   private Long hotelId;
   @Schema(description = "Room Number", example = "12345")
-  @NotBlank(message = "Number cannot be blank")
-  private int number;
+  private Integer number;
   @Schema(description = "Room phone number", example = "3214")
   @NotBlank(message = "Phone number can not be blank")
+  @Pattern(regexp = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$", message = "Phone number is not valid")
   private String phoneNumber;
   @Schema(description = "Room floor", example = "23")
-  @NotBlank(message = "Floor can not be blank")
   @PositiveOrZero
-  private int floor;
+  private Integer floor;
   @Schema(description = "Unique Id of this roomType", example = "123456")
   @NotNull
   private Long roomTypeId;
