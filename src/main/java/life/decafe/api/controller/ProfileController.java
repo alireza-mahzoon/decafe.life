@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.ProfileDto;
 import life.decafe.api.service.ProfileService;
 import org.slf4j.Logger;
@@ -49,8 +50,11 @@ public class ProfileController {
   }
 
   @PutMapping(value = "/{profileId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<ProfileDto> updateProfile(@RequestBody ProfileDto profile, @PathVariable Long profileId) {
+  public ResponseEntity<ProfileDto> updateProfile(@Validated @RequestBody ProfileDto profile, @PathVariable Long profileId) {
     LOGGER.info("Update a profile with Id ={}", profileId);
+    if (!profile.getId().equals(profileId)) {
+      throw new BadRequestException("The profileId in the end point is not equal to method argument");
+    }
     ProfileDto updatedProfile = profileService.updateProfile(profile);
     return ResponseEntity.ok(updatedProfile);
   }
