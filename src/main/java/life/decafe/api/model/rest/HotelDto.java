@@ -20,8 +20,10 @@ public class HotelDto {
   @NotBlank(message = "Address cannot be blank")
   private String address;
   @Schema(description = "City that hotel is located in", example = "Stockholm")
+  @NotBlank(message = "City cannot be blank")
   private String city;
   @Schema(description = "Country that the hotel located", example = "Sweden")
+  @NotBlank(message = "Country cannot be blank")
   private String country;
   @Schema(description = "Registered time and date of data", example = "2020-03-03 19:20:20.994", accessMode = Schema.AccessMode.READ_ONLY)
   private LocalDateTime registered;
