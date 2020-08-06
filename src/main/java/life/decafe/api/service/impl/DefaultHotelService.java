@@ -62,10 +62,9 @@ public class DefaultHotelService implements HotelService {
   }
 
   @Override
-  public Void deleteById(Long hotelId) {
+  public void deleteById(Long hotelId) {
     LOGGER.debug("Delete hotel by Id");
     hotelRepository.deleteById(hotelId);
-    return null;
   }
 
   @Override

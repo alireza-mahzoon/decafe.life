@@ -41,7 +41,7 @@ public interface HotelService {
    * @param hotelId hotel Id
    * @return
    */
-  Void deleteById(Long hotelId);
+  void deleteById(Long hotelId);
 
   /**
    * Update hotel
