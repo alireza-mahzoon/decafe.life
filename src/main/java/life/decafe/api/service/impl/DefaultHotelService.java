@@ -1,6 +1,7 @@
 package life.decafe.api.service.impl;
 
 import life.decafe.api.exception.BadRequestException;
+import life.decafe.api.exception.NotFoundException;
 import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.HotelDto;
@@ -68,9 +69,15 @@ public class DefaultHotelService implements HotelService {
   }
 
   @Override
-  public HotelDto updateHotel(HotelDto hotel) {
+  public HotelDto updateHotel(HotelDto hotelDto) {
     LOGGER.debug("Update hotel");
-    Hotel hotelUpdated = hotelRepository.save(beanMapper.map(hotel));
-    return beanMapper.map(hotelUpdated);
+    Hotel currentHotel = hotelRepository.findById(hotelDto.getId()).orElseThrow(()-> new NotFoundException("Hotel does not existed"));
+    Hotel hotelToUpdate = hotelRepository.save(beanMapper.map(hotelDto));
+    currentHotel.setName(hotelToUpdate.getName());
+    currentHotel.setAddress(hotelToUpdate.getAddress());
+    currentHotel.setCity(hotelToUpdate.getCity());
+    currentHotel.setCountry(hotelToUpdate.getCountry());
+    currentHotel.setUpdated(LocalDateTime.now());
+    return beanMapper.map(currentHotel);
   }
 }
