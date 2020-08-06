@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.HotelDto;
 import life.decafe.api.service.HotelService;
 import org.slf4j.Logger;
@@ -53,8 +54,11 @@ public class HotelController {
   }
 
   @PutMapping(value = "/{hotelId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelDto> updateHotelById(@RequestBody HotelDto hotel, @PathVariable Long hotelId) {
+  public ResponseEntity<HotelDto> updateHotelById(@RequestBody @Validated HotelDto hotel, @PathVariable Long hotelId) {
     LOGGER.info("Update a hotel");
+    if (!hotel.getId().equals(hotelId)) {
+      throw new BadRequestException("The hotelId in the end point is not equal to method argument");
+    }
     HotelDto updatedHotel = hotelService.updateHotel(hotel);
     return ResponseEntity.ok(updatedHotel);
   }
