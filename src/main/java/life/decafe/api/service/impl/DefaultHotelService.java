@@ -64,7 +64,12 @@ public class DefaultHotelService implements HotelService {
   @Override
   public void deleteById(Long hotelId) {
     LOGGER.debug("Delete hotel by Id");
-    hotelRepository.deleteById(hotelId);
+    Optional<Hotel> hotelToBeDeleted = hotelRepository.findById(hotelId);
+    if (hotelToBeDeleted.isPresent()) {
+      hotelRepository.deleteById(hotelId);
+    } else {
+      throw new NotFoundException("The hotel does not exist");
+    }
   }
 
   @Override
