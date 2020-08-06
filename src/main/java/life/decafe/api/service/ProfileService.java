@@ -35,7 +35,7 @@ public interface ProfileService {
    * @param ProfileId profile Id
    * @return
    */
-  Void deleteProfileById(Long ProfileId);
+  void deleteProfileById(Long ProfileId);
 
   /**
    * Update profile

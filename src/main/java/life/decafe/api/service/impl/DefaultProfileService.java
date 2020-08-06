@@ -53,10 +53,9 @@ public class DefaultProfileService implements ProfileService {
   }
 
   @Override
-  public Void deleteProfileById(Long profileId) {
+  public void deleteProfileById(Long profileId) {
     LOGGER.debug("Delete profile by Id={}", profileId);
     profileRepository.deleteById(profileId);
-    return null;
   }
 
   @Override
