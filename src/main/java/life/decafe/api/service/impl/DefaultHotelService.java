@@ -77,6 +77,9 @@ public class DefaultHotelService implements HotelService {
     LOGGER.debug("Update hotel");
     Hotel currentHotel = hotelRepository.findById(hotelDto.getId()).orElseThrow(()-> new NotFoundException("Hotel does not existed"));
     Hotel hotelToUpdate = hotelRepository.save(beanMapper.map(hotelDto));
+    if (hotelRepository.findByAddress(hotelDto.getAddress()).isPresent()) {
+      throw new BadRequestException("The hotel already created");
+    }
     currentHotel.setName(hotelToUpdate.getName());
     currentHotel.setAddress(hotelToUpdate.getAddress());
     currentHotel.setCity(hotelToUpdate.getCity());
