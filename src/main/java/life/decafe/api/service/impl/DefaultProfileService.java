@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.NotFoundException;
 import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.Profile;
 import life.decafe.api.model.mapper.BeanMapper;
@@ -10,7 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,6 +30,9 @@ public class DefaultProfileService implements ProfileService {
   @Override
   public ProfileDto createProfile(ProfileDto profile) {
     LOGGER.debug("Create a profile");
+    profile.setId(null);
+    profile.setRegistered(LocalDateTime.now());
+    profile.setUpdated(profile.getRegistered());
     profile.setEmail(profile.getEmail().toLowerCase());
     String profileEmail = profile.getEmail();
     Optional<Profile> existedProfile = profileRepository.findByEmail(profileEmail);
@@ -55,13 +59,32 @@ public class DefaultProfileService implements ProfileService {
   @Override
   public void deleteProfileById(Long profileId) {
     LOGGER.debug("Delete profile by Id={}", profileId);
-    profileRepository.deleteById(profileId);
+    Optional<Profile> profileToBeDeleted = profileRepository.findById(profileId);
+    if (profileToBeDeleted.isPresent()) {
+      profileRepository.deleteById(profileId);
+    } else {
+      throw new NotFoundException("The profile does not exist");
+    }
   }
 
   @Override
-  public ProfileDto updateProfile(ProfileDto profile) {
+  public ProfileDto updateProfile(ProfileDto profileDto) {
     LOGGER.debug("Update profile information");
-    Profile profileUpdated = profileRepository.save(beanMapper.map(profile));
-    return beanMapper.map(profileUpdated);
+    Profile currentProfile = profileRepository.findById(profileDto.getId()).orElseThrow(() -> new NotFoundException("Profile not exist"));
+
+    if (!profileDto.getEmail().equals(currentProfile.getEmail())) {
+      profileDto.setEmail(profileDto.getEmail().toLowerCase());
+      String profileEmail = profileDto.getEmail();
+      Optional<Profile> existedProfile = profileRepository.findByEmail(profileEmail);
+      if (existedProfile.isPresent()) {
+        throw new ResourceConflictException("The email already exists");
+      }
+    }
+    currentProfile.setFirstName(profileDto.getFirstName());
+    currentProfile.setLastName(profileDto.getLastName());
+    currentProfile.setBirthday(profileDto.getBirthday());
+    currentProfile.setEmail(profileDto.getEmail());
+    currentProfile.setUpdated(LocalDateTime.now());
+    return beanMapper.map(profileRepository.save((currentProfile)));
   }
 }
