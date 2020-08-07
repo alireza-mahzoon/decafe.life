@@ -54,6 +54,15 @@ public class RoomController {
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/room/{roomId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
   public ResponseEntity<RoomDto> updateRoom(@RequestBody @Validated RoomDto room, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomId) {
     LOGGER.info("Updating a room with Id ={}", roomId);
+    if (!room.getId().equals(roomId)) {
+      throw new BadRequestException("The roomId in the end point is not equal to method argument");
+    }
+    if (!room.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotelId in the end point is not equal to method argument");
+    }
+    if (!room.getRoomTypeId().equals(roomtypeId)) {
+      throw new BadRequestException("The roomTypeId in the end point is not equal to method argument");
+    }
     RoomDto roomUpdated = roomService.updateRoom(room);
     return ResponseEntity.ok(roomUpdated);
   }
