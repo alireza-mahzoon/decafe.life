@@ -18,9 +18,9 @@ public class Room {
   @EqualsAndHashCode.Include
   private Long id;
   private Long hotelId;
-  private int number;
+  private Integer number;
   private String phoneNumber;
-  private int floor;
+  private Integer floor;
   private Long roomTypeId;
   private LocalDateTime registered;
   private LocalDateTime updated;
