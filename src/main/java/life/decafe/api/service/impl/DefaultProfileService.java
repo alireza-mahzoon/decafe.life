@@ -71,9 +71,8 @@ public class DefaultProfileService implements ProfileService {
   public ProfileDto updateProfile(ProfileDto profileDto) {
     LOGGER.debug("Update profile information");
     Profile currentProfile = profileRepository.findById(profileDto.getId()).orElseThrow(() -> new NotFoundException("Profile not exist"));
-
+    profileDto.setEmail(profileDto.getEmail().toLowerCase());
     if (!profileDto.getEmail().equals(currentProfile.getEmail())) {
-      profileDto.setEmail(profileDto.getEmail().toLowerCase());
       String profileEmail = profileDto.getEmail();
       Optional<Profile> existedProfile = profileRepository.findByEmail(profileEmail);
       if (existedProfile.isPresent()) {
