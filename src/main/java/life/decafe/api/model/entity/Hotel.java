@@ -21,6 +21,7 @@ public class Hotel {
   private String address;
   private String city;
   private String country;
+  private String phoneNumber;
   private LocalDateTime registered;
   private LocalDateTime updated;
 }
