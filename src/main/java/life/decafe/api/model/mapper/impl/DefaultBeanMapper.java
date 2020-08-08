@@ -15,6 +15,7 @@ public class DefaultBeanMapper implements BeanMapper {
     hotelDto.setAddress(hotel.getAddress());
     hotelDto.setCity(hotel.getCity());
     hotelDto.setCountry(hotel.getCountry());
+    hotelDto.setPhoneNumber(hotel.getPhoneNumber());
     hotelDto.setRegistered(hotel.getRegistered());
     hotelDto.setUpdated(hotel.getUpdated());
     return hotelDto;
@@ -28,6 +29,7 @@ public class DefaultBeanMapper implements BeanMapper {
     hotel.setAddress(hotelDto.getAddress());
     hotel.setCity(hotelDto.getCity());
     hotel.setCountry(hotelDto.getCountry());
+    hotel.setPhoneNumber(hotelDto.getPhoneNumber());
     hotel.setRegistered(hotelDto.getRegistered());
     hotel.setUpdated(hotelDto.getUpdated());
     return hotel;
@@ -67,6 +69,7 @@ public class DefaultBeanMapper implements BeanMapper {
     profileDto.setId(profile.getId());
     profileDto.setFirstName(profile.getFirstName());
     profileDto.setLastName(profile.getLastName());
+    profileDto.setBirthday(profile.getBirthday());
     profileDto.setEmail(profile.getEmail());
     profileDto.setRegistered(profile.getRegistered());
     profileDto.setUpdated(profile.getUpdated());
