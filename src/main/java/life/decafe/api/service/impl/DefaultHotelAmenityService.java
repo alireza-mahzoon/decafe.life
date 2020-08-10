@@ -86,6 +86,11 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   @Override
   public void deleteHotelAmenityById(Long hotelAmenityId) {
     LOGGER.debug("Delete hotel amenity with Id={}", hotelAmenityId);
-    hotelAmenityRepository.deleteById(hotelAmenityId);
+    Optional<HotelAmenity> hotelAmenityToBeDeleted = hotelAmenityRepository.findById(hotelAmenityId);
+    if (hotelAmenityToBeDeleted.isPresent()) {
+      hotelAmenityRepository.deleteById(hotelAmenityId);
+    } else {
+      throw new NotFoundException("The hotel amenity does not exist");
+    }
   }
 }
