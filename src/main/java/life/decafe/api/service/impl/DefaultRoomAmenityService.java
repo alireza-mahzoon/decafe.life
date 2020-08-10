@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.NotFoundException;
 import life.decafe.api.model.entity.RoomAmenity;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.RoomAmenityDto;
@@ -9,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,12 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   @Override
   public RoomAmenityDto createRoomAmenity(RoomAmenityDto roomAmenity) {
     LOGGER.debug("Create a room amenity");
+    roomAmenity.setId(null);
+    roomAmenity.setRegistered(LocalDateTime.now());
+    roomAmenity.setUpdated(roomAmenity.getRegistered());
+    if (roomAmenityRepository.existsById(roomAmenity.getRoomTypeId())) {
+      throw new NotFoundException("The room type is not existed");
+    }
     RoomAmenity roomAmenityCreated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
     return beanMapper.map(roomAmenityCreated);
   }
