@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.RoomTypeDto;
 import life.decafe.api.service.RoomTypeService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,15 +50,24 @@ public class RoomTypeController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomTypeDto> createRoomType(@RequestBody RoomTypeDto roomtype, @PathVariable Long hotelId) {
+  public ResponseEntity<RoomTypeDto> createRoomType(@RequestBody @Validated RoomTypeDto roomtype, @PathVariable Long hotelId) {
     LOGGER.info("Create a roomType for a hotel with id={}", hotelId);
+    if (!roomtype.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotel Id in the end point is not equal to method argument");
+    }
     RoomTypeDto createdRoomType = roomTypeService.createRoomType(roomtype);
     return ResponseEntity.ok(createdRoomType);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomTypeDto> updateRoomType(@RequestBody RoomTypeDto roomtype, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+  public ResponseEntity<RoomTypeDto> updateRoomType(@RequestBody @Validated RoomTypeDto roomtype, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
     LOGGER.info("Updating a roomType with id={} and hotelId ={}", roomTypeId, hotelId);
+    if (!roomtype.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotel Id in the end point is not equal to method argument");
+    }
+    if (!roomtype.getId().equals(roomTypeId)) {
+      throw new BadRequestException("The room type Id in the end point is not equal to method argument");
+    }
     RoomTypeDto roomTypeUpdated = roomTypeService.updateRoomType(roomtype);
     return ResponseEntity.ok(roomTypeUpdated);
   }
