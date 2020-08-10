@@ -57,6 +57,9 @@ public class RoomAmenityController {
     if (!roomAmenity.getRoomTypeId().equals(roomtypeId)) {
       throw new BadRequestException("The roomTypeId in the end point is not equal to method argument");
     }
+    if (roomAmenity.getId().equals(roomamenityId)) {
+      throw new BadRequestException("The room amenity Id in the end point is not equal to method argument");
+    }
     RoomAmenityDto roomamenityUpdated = roomAmenityService.updateRoomAmenity(roomAmenity);
     return ResponseEntity.ok(roomAmenity);
   }
