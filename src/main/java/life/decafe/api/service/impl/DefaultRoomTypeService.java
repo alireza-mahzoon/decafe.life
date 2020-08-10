@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.exception.NotFoundException;
 import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.RoomType;
@@ -63,17 +64,35 @@ public class DefaultRoomTypeService implements RoomTypeService {
   }
 
   @Override
-  public RoomTypeDto updateRoomType(RoomTypeDto roomType) {
+  public RoomTypeDto updateRoomType(RoomTypeDto roomTypeDto) {
     LOGGER.debug("Update a room type");
-    RoomType roomTypeUpdated = roomTypeRepository.save(beanMapper.map(roomType));
-    return beanMapper.map(roomTypeUpdated);
+    RoomType currentRoomType = roomTypeRepository.findById(roomTypeDto.getId()).orElseThrow(()-> new NotFoundException("Room type does not exist"));
+    RoomType toUpdate = beanMapper.map(roomTypeDto);
+    if (!currentRoomType.getHotelId().equals(toUpdate.getHotelId())) {
+      throw new BadRequestException("Hotel Id cannot be changed");
+    }
+    if (!toUpdate.getName().equals(currentRoomType.getName())) {
+      Optional<RoomType> existedRoomType = roomTypeRepository.findByHotelIdAndName(roomTypeDto.getHotelId(), roomTypeDto.getName());
+      if (existedRoomType.isPresent()) {
+      throw new ResourceConflictException("This room type is already exists");
+      }
+    }
+    currentRoomType.setName(toUpdate.getName());
+    currentRoomType.setDescription(toUpdate.getDescription());
+    currentRoomType.setCapacity(toUpdate.getCapacity());
+    currentRoomType.setUpdated(LocalDateTime.now());
+    return beanMapper.map(roomTypeRepository.save(currentRoomType));
   }
 
   @Override
-  public Void deleteRoomType(Long roomTypeId) {
+  public void deleteRoomType(Long roomTypeId) {
     LOGGER.debug("Delete a room type by Id={}", roomTypeId);
-    roomTypeRepository.deleteById(roomTypeId);
-    return null;
+    Optional<RoomType> roomTypeToDelete = roomTypeRepository.findById(roomTypeId);
+    if (roomTypeToDelete.isPresent()) {
+      roomTypeRepository.deleteById(roomTypeId);
+    } else {
+      throw new NotFoundException("The room type does not exist");
+    }
   }
 
   @Override
