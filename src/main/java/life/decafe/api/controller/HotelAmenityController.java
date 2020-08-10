@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.HotelAmenityDto;
 import life.decafe.api.service.HotelAmenityService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,15 +42,24 @@ public class HotelAmenityController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenityDto> createHotelAmenity(@RequestBody HotelAmenityDto amenity, @PathVariable Long hotelId) {
+  public ResponseEntity<HotelAmenityDto> createHotelAmenity(@RequestBody @Validated HotelAmenityDto amenity, @PathVariable Long hotelId) {
     LOGGER.info("Create a hotel amenity");
+    if (!amenity.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotelId in the end point is not equal to method argument");
+    }
     HotelAmenityDto CreatedHotelAmenity = hotelAmenityService.createHotelAmenity(amenity);
     return ResponseEntity.ok(CreatedHotelAmenity);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/amenity/{amenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<HotelAmenityDto> updateHotelAmenity(@RequestBody HotelAmenityDto hotelAmenity, @PathVariable Long hotelId, @PathVariable Long amenityId) {
+  public ResponseEntity<HotelAmenityDto> updateHotelAmenity(@RequestBody @Validated HotelAmenityDto hotelAmenity, @PathVariable Long hotelId, @PathVariable Long amenityId) {
     LOGGER.info("Update a hotel amenity with id={} for hotel with id={}", amenityId, hotelId);
+    if (!hotelAmenity.getHotelId().equals(hotelId)) {
+      throw new BadRequestException("The hotelId in the end point is not equal to method argument");
+    }
+    if (!hotelAmenity.getId().equals(amenityId)) {
+      throw new BadRequestException("The amenityId in the end point is not equal to method argument");
+    }
     HotelAmenityDto updatedHotelAmenity = hotelAmenityService.updateHotelAmenity(hotelAmenity);
     return ResponseEntity.ok(updatedHotelAmenity);
   }
