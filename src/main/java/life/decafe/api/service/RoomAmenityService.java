@@ -41,5 +41,5 @@ public interface RoomAmenityService {
    * @param roomAmenityId
    * @return
    */
-  Void deleteRoomAmenityById(Long roomAmenityId);
+  void deleteRoomAmenityById(Long roomAmenityId);
 }
