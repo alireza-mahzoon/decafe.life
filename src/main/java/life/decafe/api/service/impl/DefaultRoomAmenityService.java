@@ -1,17 +1,19 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.exception.NotFoundException;
+import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.RoomAmenity;
 import life.decafe.api.model.mapper.BeanMapper;
 import life.decafe.api.model.rest.RoomAmenityDto;
 import life.decafe.api.repository.RoomAmenityRepository;
+import life.decafe.api.repository.RoomTypeRepository;
 import life.decafe.api.service.RoomAmenityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -21,10 +23,12 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
 
   private final Logger LOGGER = LoggerFactory.getLogger(DefaultRoomAmenityService.class);
   private final RoomAmenityRepository roomAmenityRepository;
+  private final RoomTypeRepository roomTypeRepository;
   private final BeanMapper beanMapper;
 
-  public DefaultRoomAmenityService(RoomAmenityRepository roomAmenityRepository, BeanMapper beanMapper) {
+  public DefaultRoomAmenityService(RoomAmenityRepository roomAmenityRepository, RoomTypeRepository roomTypeRepository, BeanMapper beanMapper) {
     this.roomAmenityRepository = roomAmenityRepository;
+    this.roomTypeRepository = roomTypeRepository;
     this.beanMapper = beanMapper;
   }
 
@@ -34,7 +38,7 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
     roomAmenity.setId(null);
     roomAmenity.setRegistered(LocalDateTime.now());
     roomAmenity.setUpdated(roomAmenity.getRegistered());
-    if (roomAmenityRepository.existsById(roomAmenity.getRoomTypeId())) {
+    if (!roomTypeRepository.existsById(roomAmenity.getRoomTypeId())) {
       throw new NotFoundException("The room type is not existed");
     }
     RoomAmenity roomAmenityCreated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
@@ -55,9 +59,20 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   }
 
   @Override
-  public RoomAmenityDto updateRoomAmenity(RoomAmenityDto roomAmenity) {
+  public RoomAmenityDto updateRoomAmenity(RoomAmenityDto roomAmenityDto) {
     LOGGER.debug("Update a room amenity");
-    RoomAmenity roomAmenityUpdated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
+    RoomAmenity currentRoomAmenity = roomAmenityRepository.findById(roomAmenityDto.getId()).orElseThrow(() -> new NotFoundException("Room Amenity does not exist"));
+    RoomAmenity toUpdate = beanMapper.map(roomAmenityDto);
+    if (!currentRoomAmenity.getRoomTypeId().equals(toUpdate.getRoomTypeId())) {
+      throw new BadRequestException("Room type Id cannot be changed");
+    }
+    if (!toUpdate.getName().equals(currentRoomAmenity.getName())) {
+      Optional<RoomAmenity> existedRoomAmenity = roomAmenityRepository.findByRoomTypeIdAndName(toUpdate.getRoomTypeId(), toUpdate.getName());
+      if (existedRoomAmenity.isPresent()) {
+        throw new ResourceConflictException("The room amenity already existed");
+      }
+    }
+    RoomAmenity roomAmenityUpdated = roomAmenityRepository.save(beanMapper.map(roomAmenityDto));
     return beanMapper.map(roomAmenityUpdated);
   }
 
