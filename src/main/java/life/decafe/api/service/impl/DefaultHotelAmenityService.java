@@ -1,5 +1,6 @@
 package life.decafe.api.service.impl;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.exception.NotFoundException;
 import life.decafe.api.exception.ResourceConflictException;
 import life.decafe.api.model.entity.HotelAmenity;
@@ -55,10 +56,24 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   }
 
   @Override
-  public HotelAmenityDto updateHotelAmenity(HotelAmenityDto hotelAmenity) {
+  public HotelAmenityDto updateHotelAmenity(HotelAmenityDto hotelAmenityDto) {
     LOGGER.debug("Update hotel amenity");
-    HotelAmenity hotelAmenityUpdated = hotelAmenityRepository.save(beanMapper.map(hotelAmenity));
-    return beanMapper.map(hotelAmenityUpdated);
+    HotelAmenity currentHotelAmenity = hotelAmenityRepository.findById(hotelAmenityDto.getId()).orElseThrow(()-> new NotFoundException("Hotel Amenity does not exist"));
+    HotelAmenity toUpdate = beanMapper.map(hotelAmenityDto);
+    if (!currentHotelAmenity.getHotelId().equals(toUpdate.getHotelId())) {
+      throw new BadRequestException("Hotel Id can not be changed");
+    }
+    if (!currentHotelAmenity.getName().equals(toUpdate.getName())) {
+      Optional<HotelAmenity> existedHotelAmenity = hotelAmenityRepository.findByHotelIdAndName(hotelAmenityDto.getHotelId(), hotelAmenityDto.getName());
+      if (existedHotelAmenity.isPresent()) {
+        throw new ResourceConflictException("The hotel amenity already exists");
+      }
+    }
+    currentHotelAmenity.setName(toUpdate.getName());
+    currentHotelAmenity.setDescription(toUpdate.getDescription());
+    currentHotelAmenity.setPricing(toUpdate.getPricing());
+    currentHotelAmenity.setUpdated(LocalDateTime.now());
+    return beanMapper.map(hotelAmenityRepository.save(currentHotelAmenity));
   }
 
   @Override
@@ -72,6 +87,5 @@ public class DefaultHotelAmenityService implements HotelAmenityService {
   public void deleteHotelAmenityById(Long hotelAmenityId) {
     LOGGER.debug("Delete hotel amenity with Id={}", hotelAmenityId);
     hotelAmenityRepository.deleteById(hotelAmenityId);
-    return null;
   }
 }
