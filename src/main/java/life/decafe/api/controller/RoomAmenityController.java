@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.exception.BadRequestException;
 import life.decafe.api.model.rest.RoomAmenityDto;
 import life.decafe.api.service.RoomAmenityService;
 import org.slf4j.Logger;
@@ -7,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -40,15 +42,21 @@ public class RoomAmenityController {
   }
 
   @PostMapping(value = "/hotel/{hotelId}/roomtype/{roomTypeId}/amenity", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomAmenityDto> createRoomAmenity(@RequestBody RoomAmenityDto amenity, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
+  public ResponseEntity<RoomAmenityDto> createRoomAmenity(@RequestBody @Validated RoomAmenityDto amenity, @PathVariable Long hotelId, @PathVariable Long roomTypeId) {
     LOGGER.info("Creating a room amenity for hotel with hotelId={} and room type with Id={}", hotelId, roomTypeId );
+    if (!amenity.getRoomTypeId().equals(roomTypeId)) {
+      throw new BadRequestException("The roomTypeId in the end point is not equal to method argument");
+    }
     RoomAmenityDto roomAmenity = roomAmenityService.createRoomAmenity(amenity);
     return ResponseEntity.ok(roomAmenity);
   }
 
   @PutMapping(value = "/hotel/{hotelId}/roomtype/{roomtypeId}/amenity/{roomamenityId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<RoomAmenityDto> updateRoomAmenity(@RequestBody RoomAmenityDto roomAmenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomamenityId) {
+  public ResponseEntity<RoomAmenityDto> updateRoomAmenity(@RequestBody @Validated RoomAmenityDto roomAmenity, @PathVariable Long hotelId, @PathVariable Long roomtypeId, @PathVariable Long roomamenityId) {
     LOGGER.info("Updating room amenity with id={}", roomamenityId);
+    if (!roomAmenity.getRoomTypeId().equals(roomtypeId)) {
+      throw new BadRequestException("The roomTypeId in the end point is not equal to method argument");
+    }
     RoomAmenityDto roomamenityUpdated = roomAmenityService.updateRoomAmenity(roomAmenity);
     return ResponseEntity.ok(roomAmenity);
   }
