@@ -41,6 +41,10 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
     if (!roomTypeRepository.existsById(roomAmenity.getRoomTypeId())) {
       throw new NotFoundException("The room type is not existed");
     }
+    Optional<RoomAmenity> existedRoomAmenity = roomAmenityRepository.findByRoomTypeIdAndName(roomAmenity.getRoomTypeId(), roomAmenity.getName());
+    if (existedRoomAmenity.isPresent()) {
+      throw new ResourceConflictException("The room amenity already exists");
+    }
     RoomAmenity roomAmenityCreated = roomAmenityRepository.save(beanMapper.map(roomAmenity));
     return beanMapper.map(roomAmenityCreated);
   }
@@ -77,9 +81,13 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
   }
 
   @Override
-  public Void deleteRoomAmenityById(Long roomAmenityId) {
+  public void deleteRoomAmenityById(Long roomAmenityId) {
     LOGGER.debug("Delete a room amenity by Id={}", roomAmenityId);
-    roomAmenityRepository.deleteById(roomAmenityId);
-    return null;
+    Optional<RoomAmenity> roomToDelete = roomAmenityRepository.findById(roomAmenityId);
+    if (roomToDelete.isPresent()) {
+      roomAmenityRepository.deleteById(roomAmenityId);
+    } else {
+      throw new NotFoundException("The room amenity does not exist");
+    }
   }
 }
