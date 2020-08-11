@@ -41,5 +41,5 @@ public interface BookingService {
    * @param bookingId
    * @return
    */
-  Void deleteBooking(Long bookingId);
+  void deleteBooking(Long bookingId);
 }
