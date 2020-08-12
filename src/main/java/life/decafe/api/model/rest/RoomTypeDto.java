@@ -26,7 +26,6 @@ public class RoomTypeDto {
   @NotBlank(message = "Description can not be blank")
   private String description;
   @Schema(description = "Capacity of this room type", example = "1")
-  @NotBlank(message = "Capacity can not be blank")
   @Min(value = 1, message = "The value must be positive")
   private Integer capacity;
   @Schema(description = "Registered time and date of data", example = "2020-03-03 19:20:20.994", accessMode = Schema.AccessMode.READ_ONLY)

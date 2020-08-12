@@ -41,5 +41,5 @@ public interface HotelAmenityService {
    * @param hotelAmenityId
    * @return
    */
-  Void deleteHotelAmenityById(Long hotelAmenityId);
+  void deleteHotelAmenityById(Long hotelAmenityId);
 }

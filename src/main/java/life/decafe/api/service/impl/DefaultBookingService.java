@@ -65,15 +65,15 @@ public class DefaultBookingService implements BookingService {
       throw new ResourceConflictException("The room is not located in the hotel");
     }
 
-//    LocalDate MinTime = Collections.min(bookingRepository.findAllCheckInDatesByRoomId(booking.getRoomId()));
-//    LocalDate MaxTime = Collections.max(bookingRepository.findAllCheckOutDatesByRoomId(booking.getRoomId()));
-//
-//    if (booking.getCheckInDate().compareTo(MaxTime)<0) {
-//      throw new ResourceConflictException("Room is not available in the check in date");
-//    }
-//    if (booking.getCheckOutDate().compareTo(MinTime)>0) {
-//      throw new ResourceConflictException("Room is not available in the check in date");
-//    }
+    LocalDate MinTime = Collections.min(bookingRepository.findAllCheckInDatesByRoomId(booking.getRoomId()));
+    LocalDate MaxTime = Collections.max(bookingRepository.findAllCheckOutDatesByRoomId(booking.getRoomId()));
+
+    if (booking.getCheckInDate().compareTo(MaxTime)<0) {
+      throw new ResourceConflictException("Room is not available in the check in date");
+    }
+    if (booking.getCheckOutDate().compareTo(MinTime)>0) {
+      throw new ResourceConflictException("Room is not available in the check in date");
+    }
     Booking createdBooking = bookingRepository.save(beanMapper.map(booking));
     return beanMapper.map(createdBooking);
   }

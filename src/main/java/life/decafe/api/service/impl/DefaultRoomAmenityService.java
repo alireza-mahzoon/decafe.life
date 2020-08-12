@@ -76,8 +76,11 @@ public class DefaultRoomAmenityService implements RoomAmenityService {
         throw new ResourceConflictException("The room amenity already existed");
       }
     }
-    RoomAmenity roomAmenityUpdated = roomAmenityRepository.save(beanMapper.map(roomAmenityDto));
-    return beanMapper.map(roomAmenityUpdated);
+    currentRoomAmenity.setName(toUpdate.getName());
+    currentRoomAmenity.setDescription(toUpdate.getDescription());
+    currentRoomAmenity.setPricing(toUpdate.getPricing());
+    currentRoomAmenity.setUpdated(LocalDateTime.now());
+    return beanMapper.map(roomAmenityRepository.save(currentRoomAmenity));
   }
 
   @Override

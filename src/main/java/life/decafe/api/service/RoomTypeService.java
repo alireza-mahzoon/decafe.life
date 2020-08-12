@@ -41,7 +41,7 @@ public interface RoomTypeService {
    * @param roomTypeId
    * @return
    */
-  Void deleteRoomType(Long roomTypeId);
+  void deleteRoomType(Long roomTypeId);
 
   /**
    * Count number of all room types

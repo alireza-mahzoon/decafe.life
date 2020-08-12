@@ -136,6 +136,8 @@ public class DefaultBeanMapper implements BeanMapper {
     booking.setProfileId(bookingDto.getProfileId());
     booking.setCheckInDate(bookingDto.getCheckInDate());
     booking.setCheckOutDate(bookingDto.getCheckOutDate());
+    booking.setHotelId(bookingDto.getHotelId());
+    booking.setRoomId(bookingDto.getRoomId());
     booking.setRegistered(bookingDto.getRegistered());
     booking.setUpdated(bookingDto.getUpdated());
     return booking;
@@ -146,7 +148,7 @@ public class DefaultBeanMapper implements BeanMapper {
     RoomTypeDto roomTypeDto = new RoomTypeDto();
     roomTypeDto.setId(roomType.getId());
     roomTypeDto.setHotelId(roomType.getHotelId());
-    roomTypeDto.setName(roomType.getDescription());
+    roomTypeDto.setName(roomType.getName());
     roomTypeDto.setDescription(roomType.getDescription());
     roomTypeDto.setCapacity(roomType.getCapacity());
     roomTypeDto.setRegistered(roomType.getRegistered());

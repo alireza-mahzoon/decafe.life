@@ -4,6 +4,7 @@ create table Hotel (
     Address text not null,
     City text not null,
     Country text not null,
+    PhoneNumber text not null,
     Registered timestamp not null,
     Updated timestamp not null
 );

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,10 +16,11 @@ public class HotelAmenityDto {
   @Schema(description = "Unique Id of this hotel amenity", example = "1234567", accessMode = Schema.AccessMode.READ_ONLY)
   private Long id;
   @Schema(description = "Unique Id of this hotel", example = "1234567", accessMode = Schema.AccessMode.READ_ONLY)
-  @NotBlank(message = "HotelId cannot be blank")
+  @NotNull
   private Long hotelId;
   @Schema(description = "Hotel amenity name", example = "Swimming pool")
-  @NotBlank(message = "Name can not be blank")
+  @NotBlank
+  @Size(min = 3, max = 20)
   private String name;
   @Schema(description = "More information about hotel amenity", example = "Swimming pool is open every day 10AM-8PM")
   @NotBlank(message = "Description can not be blank")

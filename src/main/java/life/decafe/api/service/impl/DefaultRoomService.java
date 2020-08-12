@@ -52,6 +52,9 @@ public class DefaultRoomService implements RoomService {
     if (existedRoom.isPresent()) {
       throw new ResourceConflictException("This room already exists");
     }
+    if (!roomTypeRepository.existsByIdAndHotelId(room.getRoomTypeId(), room.getHotelId())) {
+      throw new NotFoundException("The room type is not existed");
+    }
     Room roomCreated = roomRepository.save(beanMapper.map(room));
     return beanMapper.map(roomCreated);
   }
@@ -83,7 +86,7 @@ public class DefaultRoomService implements RoomService {
     //roomUpdated = roomRepository.save(beanMapper.map(room));
     return beanMapper.map(roomUpdated);
   }
-  
+
   @Override
   public RoomDto updateRoom(RoomDto roomDto) {
     LOGGER.debug("Updating room with roomId={}", roomDto.getId());

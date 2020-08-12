@@ -39,6 +39,7 @@ public class DefaultProfileService implements ProfileService {
     if (existedProfile.isPresent()) {
       throw new ResourceConflictException("The email already exists");
     }
+    
     Profile profileCreated = profileRepository.save(beanMapper.map(profile));
     return beanMapper.map(profileCreated);
   }

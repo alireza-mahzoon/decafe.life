@@ -40,7 +40,7 @@ public interface RoomService {
    * @param roomId
    * @return
    */
-  Void deleteRoom(Long roomId);
+  void deleteRoom(Long roomId);
 
   /**
    * Count number of rooms
