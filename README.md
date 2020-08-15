@@ -1,3 +1,4 @@
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 # Decafe API
 
 ## Introduction
@@ -14,4 +15,5 @@ access to the information of the rooms and hotel.
 * Finding information about hotels, hotels' rooms and users' booking
 
 ## Data Model
+The data model for this project is available on [LucidChart](https://app.lucidchart.com/documents/view/3c3a94aa-8d50-43a4-8f80-1a158ac76cd3/0_0).
 
