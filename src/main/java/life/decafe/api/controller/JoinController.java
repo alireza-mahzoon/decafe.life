@@ -1,5 +1,6 @@
 package life.decafe.api.controller;
 
+import life.decafe.api.model.entity.Hotel;
 import life.decafe.api.model.entity.HotelRoomType;
 import life.decafe.api.model.rest.HotelDto;
 import life.decafe.api.repository.HotelRepository;
@@ -36,11 +37,12 @@ public class JoinController {
   public ResponseEntity<Void> get() {
 
     List<Object[]> result = hotelRepository.findAllTypeKinds();
-    List<HotelRoomType> hotelRoomTypes = hotelRepository.findAllRoomTypes();
+    List<Object[]> resultHotelGermany = hotelRepository.findAllHotelBookedGermany();
+    //List<HotelRoomType> hotelRoomTypes = hotelRepository.findAllRoomTypes();
 
-    for (HotelRoomType hotelRoomType : hotelRoomTypes) {
-      System.out.println(hotelRoomType);
-    }
+    //for (HotelRoomType hotelRoomType : hotelRoomTypes) {
+     // System.out.println(hotelRoomType);
+    //}
 
     for (Object[] objects : result) {
       for (Object object : objects) {
@@ -51,6 +53,9 @@ public class JoinController {
     }
     for (Object[] objects : result) {
       System.out.println(Arrays.toString(objects));
+    }
+    for (Object[] object : resultHotelGermany) {
+      System.out.println(Arrays.toString(object));
     }
     return ResponseEntity.noContent().build();
   }
