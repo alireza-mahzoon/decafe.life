@@ -1,6 +1,8 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 # Decafe API
 
+
+
 ## Introduction
 The API offers management of information  about different hotels and rooms in the hotels. The user can have
 access to the information of the rooms and hotel.
